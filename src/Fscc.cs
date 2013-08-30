@@ -307,19 +307,17 @@ namespace Fscc
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_set_clock_frequency(IntPtr h, uint frequency);
 
-        public void SetClockFrequency(uint frequency)
+        public uint ClockFrequency
         {
-            int e = 0;
+            set
+            {
+                int e = 0;
 
-            e = fscc_set_clock_frequency(this.Handle, frequency);
+                e = fscc_set_clock_frequency(this.Handle, value);
 
-            if (e >= 1)
-                throw new Exception(e.ToString());
-        }
-
-        public void SetClockFrequency(uint frequency, uint ppm)
-        {
-            SetClockFrequency(frequency);
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+            }
         }
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
