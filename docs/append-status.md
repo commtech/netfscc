@@ -49,7 +49,7 @@ p.AppendStatus = true;
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ## Disable
@@ -63,9 +63,9 @@ p.AppendStatus = false;
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources
-- Complete example: [`examples\append-status.c`](https://github.com/commtech/netfscc/blob/master/examples/append-status/append-status.c)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/cfscc/blob/master/src/fscc.c)
+- Complete example: [`examples\append-status.c`](https://github.com/commtech/netfscc/blob/master/examples/append-status/append-status.cs)
+- Implemenation details: [`src\fscc.c`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)
