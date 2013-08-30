@@ -19,38 +19,28 @@ _This tutorial has already been set up for you at_
 First, drop `cfscc.dll` and `cfscc.lib` into a test directory. Now that those files are 
 copied over, create a new C file (named tutorial.c) with the following code.
 
-```
-#include <stdio.h> /* fprintf */
-#include <stdlib.h> /* EXIT_SUCCESS, EXIT_FAILURE */
-#include <fscc.h> /* fscc_connect, fscc_disconnect, fscc_handle
-                     fscc_write, fscc_read */
+```c#
+using Fscc;
 
-int main(void)
+public class Tutorial
 {
-	fscc_handle h;
-	int e = 0;
-	char odata[] = "Hello world!";
-	char idata[20] = {0};
-	unsigned tmp;
+	public static int Main(string[] args)
+	{
+		string odata = "Hello world!";
+		string idata;
 
-	/* Open port 0 in a blocking IO mode */
-	e = fscc_connect(0, 0, &h);
-	if (e != 0) {
-		fprintf(stderr, "fscc_connect failed with %d\n", e);
-		return EXIT_FAILURE;
+   		Fscc.Port p = new Fscc.Port(0);
+   		
+        /* Send "Hello world!" text */
+        p.Write(odata);
+
+        /* Read the data back in (with our loopback connector) */
+		idata = p.Read((uint)odata.Length);
+
+        Console.WriteLine(idata);
+
+		return 0;
 	}
-
-	/* Send "Hello world!" text */
-	fscc_write(h, odata, sizeof(odata), &tmp, NULL);
-
-	/* Read the data back in (with our loopback connector) */
-	fscc_read(h, idata, sizeof(idata), &tmp, NULL);
-
-	fprintf(stdout, "%s\n", idata);
-
-	fscc_disconnect(h);
-
-	return EXIT_SUCCESS;
 }
 ```
 
