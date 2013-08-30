@@ -260,6 +260,43 @@ namespace Fscc
         }
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_enable_rx_multiple(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_disable_rx_multiple(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_get_rx_multiple(IntPtr h, out bool status);
+
+        public bool RxMultiple
+        {
+            set
+            {
+                int e = 0;
+
+                if (value == true)
+                    e = fscc_enable_rx_multiple(this.Handle);
+                else
+                    e = fscc_disable_rx_multiple(this.Handle);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+            }
+
+            get
+            {
+                bool status;
+
+                int e = fscc_get_rx_multiple(this.Handle, out status);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+
+                return status;
+            }
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_purge(IntPtr h, bool tx, bool rx);
 
         public void Purge(bool tx, bool rx)
