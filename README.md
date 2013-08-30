@@ -16,11 +16,12 @@ Lets get started with a quick programming example for fun.
 _This tutorial has already been set up for you at_ 
 [`examples/tutorial/`](https://github.com/commtech/netfscc/tree/master/examples/tutorial).
 
-First, drop `cfscc.dll` and `cfscc.lib` into a test directory. Now that those files are 
-copied over, create a new C file (named tutorial.c) with the following code.
+First, drop `netfscc.dll` and `cfscc.dll` into a test directory. Now that those files are 
+copied over, create a new C# file (named tutorial.cs) with the following code.
 
 ```c#
 using Fscc;
+using System;
 
 public class Tutorial
 {
@@ -31,13 +32,13 @@ public class Tutorial
 
    		Fscc.Port p = new Fscc.Port(0);
    		
-        /* Send "Hello world!" text */
-        p.Write(odata);
+		/* Send "Hello world!" text */
+		p.Write(odata);
 
-        /* Read the data back in (with our loopback connector) */
+		/* Read the data back in (with our loopback connector) */
 		idata = p.Read((uint)odata.Length);
 
-        Console.WriteLine(idata);
+		Console.WriteLine(idata);
 
 		return 0;
 	}
@@ -48,7 +49,7 @@ For this example I will use the Visual Studio command line compiler, but
 you can use your compiler of choice.
 
 ```
-# cl /W4 /MT tutorial.c cfscc.lib /I ../../src/
+# csc /reference:netfscc.dll tutorial.cs
 ```
 
 Now attach the included loopback connector.
