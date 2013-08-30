@@ -67,5 +67,5 @@ p.AppendStatus = false;
 
 
 ### Additional Resources
-- Complete example: [`examples\append-status.c`](https://github.com/commtech/netfscc/blob/master/examples/append-status/append-status.cs)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)
+- Complete example: [`examples\append-status.cs`](https://github.com/commtech/netfscc/blob/master/examples/append-status/append-status.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)
