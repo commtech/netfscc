@@ -61,5 +61,5 @@ p.AppendStatus = false;
 
 
 ### Additional Resources
-- Complete example: [`examples\ignore-timeout.cs`](https://github.com/commtech/netfscc/blob/master/examples/ignore-timeout/ignore-timeout.cs)
+- Complete example: [`examples\ignore-timeout.cs`](https://github.com/commtech/netfscc/blob/master/examples/ignore-timeout.cs)
 - Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

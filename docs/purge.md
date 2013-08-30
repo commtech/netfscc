@@ -53,5 +53,5 @@ p.Purge(false, true)
 
 
 ### Additional Resources
-- Complete example: [`examples\purge.cs`](https://github.com/commtech/cfscc/blob/master/examples/purge/purge.cs)
-- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/cfscc/blob/master/src/Fscc.cs)
+- Complete example: [`examples\purge.cs`](https://github.com/commtech/netfscc/blob/master/examples/purge.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

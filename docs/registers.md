@@ -153,5 +153,5 @@ values.
 
 
 ### Additional Resources
-- Complete example: [`examples\append-status.c`](https://github.com/commtech/cfscc/blob/master/examples/append-status/append-status.c)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/cfscc/blob/master/src/fscc.c)
+- Complete example: [`examples\registers.cs`](https://github.com/commtech/netfscc/blob/master/examples/registers.cs)
+- Implemenation details: [`src\Fscc.c`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

@@ -14,7 +14,7 @@ This README file is best viewed [online](http://github.com/commtech/netfscc/).
 Lets get started with a quick programming example for fun.
 
 _This tutorial has already been set up for you at_ 
-[`examples/tutorial/`](https://github.com/commtech/netfscc/tree/master/examples/tutorial).
+[`examples/tutorial.c`](https://github.com/commtech/netfscc/tree/master/examples/tutorial.c).
 
 First, drop `netfscc.dll` and `cfscc.dll` into a test directory. Now that those files are 
 copied over, create a new C# file (named tutorial.cs) with the following code.

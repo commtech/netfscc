@@ -60,5 +60,5 @@ p.AppendTimestamp = false;
 
 
 ### Additional Resources
-- Complete example: [`examples\append-timestamp.cs`](https://github.com/commtech/netfscc/blob/master/examples/append-timestamp/append-timestamp.cs)
+- Complete example: [`examples\append-timestamp.cs`](https://github.com/commtech/netfscc/blob/master/examples/append-timestamp.cs)
 - Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

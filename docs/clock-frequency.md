@@ -40,5 +40,5 @@ p.ClockFrequency = 18432000;
 
 
 ### Additional Resources
-- Complete example: [`examples\clock-frequency.cs`](https://github.com/commtech/netfscc/blob/master/examples/clock-frequency/clock-frequency.cs)
+- Complete example: [`examples\clock-frequency.cs`](https://github.com/commtech/netfscc/blob/master/examples/clock-frequency.cs)
 - Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

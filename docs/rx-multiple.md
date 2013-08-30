@@ -60,5 +60,5 @@ p.RxMultiple = false;
 
 
 ### Additional Resources
-- Complete example: [`examples\rx-multiple.cs`](https://github.com/commtech/netfscc/blob/master/examples/rx-multiple/rx-multiple.cs)
+- Complete example: [`examples\rx-multiple.cs`](https://github.com/commtech/netfscc/blob/master/examples/rx-multiple.cs)
 - Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)
