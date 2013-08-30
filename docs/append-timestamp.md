@@ -3,94 +3,62 @@
 ###### Driver Support
 | Code           | Version
 | -------------- | --------
-| `fscc-windows` | `v2.4.0` 
-| `fscc-linux`   | `v2.4.0` 
+| `fscc-windows` | `v2.0.0` 
+| `fscc-linux`   | `v2.0.0` 
 
 
 ## Get
-```c
-int fscc_get_append_timestamp(fscc_handle h, unsigned *status)
+```c#
+public bool AppendTimestamp
 ```
 
-| Parameter | Type             | Description
-| --------- | ---------------- | -----------------------
-| `h`       | `fscc_handle`    | The handle to your port
-| `status`  | `unsigned int *` | The current `append timestamp` value
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
 ###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-unsigned status;
-
-fscc_get_append_timestamp(h, &status);
+var status = p.AppendTimestamp;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ## Enable
-```c
-int fscc_enable_append_timestamp(fscc_handle h)
+```c#
+public bool AppendTimestamp
 ```
 
-| Parameter | Type             | Description
-| --------- | ---------------- | -----------------------
-| `h`       | `fscc_handle`    | The handle to your port
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
 ###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_enable_append_timestamp(h);
+p.AppendTimestamp = true;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ## Disable
-```c
-int fscc_disable_append_timestamp(fscc_handle h)
-```
-
-| Parameter | Type             | Description
-| --------- | ---------------- | -----------------------
-| `h`       | `fscc_handle`    | The handle to your port
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
-###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_disable_append_timestamp(h);
+p.AppendTimestamp = false;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources
-- Complete example: [`examples\append-timestamp.c`](https://github.com/commtech/cfscc/blob/master/examples/append-timestamp/append-timestamp.c)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/cfscc/blob/master/src/fscc.c)
+- Complete example: [`examples\append-timestamp.cs`](https://github.com/commtech/netfscc/blob/master/examples/append-timestamp/append-timestamp.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

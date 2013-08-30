@@ -3,94 +3,62 @@
 ###### Driver Support
 | Code           | Version
 | -------------- | --------
-| `fscc-windows` | `v2.2.9` 
-| `fscc-linux`   | `v2.2.4` 
+| `fscc-windows` | `v2.0.0` 
+| `fscc-linux`   | `v2.0.0` 
 
 
 ## Get
-```c
-int fscc_get_rx_multiple(fscc_handle h, unsigned *status)
+```c#
+public bool RxMultiple
 ```
 
-| Parameter | Type             | Description
-| --------- | ---------------- | -----------------------
-| `h`       | `fscc_handle`    | The handle to your port
-| `status`  | `unsigned int *` | The current `rx multiple` value
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
 ###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-unsigned status;
-
-fscc_get_rx_multiple(h, &status);
+var status = p.RxMultiple;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ## Enable
-```c
-int fscc_enable_rx_multiple(fscc_handle h)
+```c#
+public bool RxMultiple
 ```
 
-| Parameter | Type             | Description
-| --------- | ---------------- | -----------------------
-| `h`       | `fscc_handle`    | The handle to your port
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
 ###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_enable_rx_multiple(h);
+p.RxMultiple = true;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ## Disable
-```c
-int fscc_disable_rx_multiple(fscc_handle h)
-```
-
-| Parameter | Type             | Description
-| --------- | ---------------- | -----------------------
-| `h`       | `fscc_handle`    | The handle to your port
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
-###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_disable_rx_multiple(h);
+p.RxMultiple = false;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources
-- Complete example: [`examples\rx-multiple.c`](https://github.com/commtech/cfscc/blob/master/examples/rx-multiple/rx-multiple.c)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/cfscc/blob/master/src/fscc.c)
+- Complete example: [`examples\rx-multiple.cs`](https://github.com/commtech/netfscc/blob/master/examples/rx-multiple/rx-multiple.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

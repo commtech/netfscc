@@ -1,5 +1,6 @@
 # Ignore Timeout
 
+
 ###### Driver Support
 | Code           | Version
 | -------------- | --------
@@ -8,90 +9,57 @@
 
 
 ## Get
-```c
-int fscc_get_ignore_timeout(fscc_handle h, unsigned *status)
+```c#
+public bool IgnoreTimeout
 ```
 
-| Parameter | Type             | Description
-| --------- | ---------------- | -----------------------
-| `h`       | `fscc_handle`    | The handle to your port
-| `status`  | `unsigned int *` | The current `ignore timeout` value
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
-
 ###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-unsigned status;
-
-fscc_get_ignore_timeout(h, &status);
+var status = p.IgnoreTimeout;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ## Enable
-```c
-int fscc_enable_ignore_timeout(fscc_handle h)
+```c#
+public bool IgnoreTimeout
 ```
 
-| Parameter | Type             | Description
-| --------- | ---------------- | -----------------------
-| `h`       | `fscc_handle`    | The handle to your port
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
 ###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_enable_ignore_timeout(h);
+p.IgnoreTimeout = true;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ## Disable
-```c
-int fscc_disable_ignore_timeout(fscc_handle h)
-```
-
-| Parameter | Type             | Description
-| --------- | ---------------- | -----------------------
-| `h`       | `fscc_handle`    | The handle to your port
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
-###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_disable_ignore_timeout(h);
+p.AppendStatus = false;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources
-- Complete example: [`examples\ignore-timeout.c`](https://github.com/commtech/cfscc/blob/master/examples/ignore-timeout/ignore-timeout.c)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/cfscc/blob/master/src/fscc.c)
+- Complete example: [`examples\ignore-timeout.cs`](https://github.com/commtech/netfscc/blob/master/examples/ignore-timeout/ignore-timeout.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

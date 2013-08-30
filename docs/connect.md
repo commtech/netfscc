@@ -12,38 +12,24 @@ if you would like to use the asynchronous functionality.
 
 
 ## Connect
-```c
-int fscc_connect(unsigned port_num, unsigned overlapped, fscc_handle *h)
+```c#
+public Port(uint port_num)
 ```
 
-| Parameter     | Type           | Description
-| ------------ | --------------- | -----------------------
-| `port_num    | `unsigned`      | The port number you would like to connect to
-| `overlapped` | `unsigned int`  | Whether to open port in overlapped IO mode
-| `h`          | `fscc_handle *` | The handle to your port
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
 ###### Examples
-Connect to port 0.
-
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-HANDLE h;
-
-fscc_connect(0, 0, &h);
+var p = new Fscc.Port(0);
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources
-- Complete example: [`examples\tutorial.c`](https://github.com/commtech/cfscc/blob/master/examples/tutorial/tutorial.c)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/cfscc/blob/master/src/fscc.c)
+- Complete example: [`examples\tutorial.cs`](https://github.com/commtech/netfscc/blob/master/examples/tutorial/tutorial.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

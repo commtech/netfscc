@@ -1,9 +1,5 @@
 # TX Modifiers
 
-- XF - Normal transmit - disable modifiers
-- XREP - Transmit repeat
-- TXT - Transmit on timer
-- TXEXT - Transmit on external signal
 
 ###### Driver Support
 | Code           | Version
@@ -11,64 +7,45 @@
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
 
+
 ## Get
-```c
-int fscc_get_tx_modifiers(fscc_handle h, unsigned *modifiers)
+```c#
+public TransmitModifiers TxModifiers
 ```
-
-| Parameter   | Type             | Description
-| ----------- | ---------------- | -----------------------
-| `h`         | `fscc_handle`    | The handle to your port
-| `modifiers` | `unsigned int *` | The current `tx modifiers` value
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
 
 ###### Examples
-```
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-unsigned modifiers;
-
-fscc_get_tx_modifiers(h, &modifiers);
+var modifiers = p.TxModifiers;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ## Set
-```c
-int fscc_set_tx_modifiers(fscc_handle h, unsigned modifiers)
+```c#
+public TransmitModifiers TxModifiers
 ```
-
-| Parameter   | Type           | Description
-| ----------- | -------------- | -----------------------
-| `h`         | `fscc_handle`  | The handle to your port
-| `modifiers` | `unsigned int` | What `tx modifiers` you would like to set
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
 
 ###### Examples
-```
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_set_tx_modifiers(h, XF | XREP);
+p.TxModifiers = XF | XREP;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources
-- Complete example: [`examples\tx-modifiers.c`](https://github.com/commtech/cfscc/blob/master/examples/tx-modifiers/tx-modifiers.c)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/cfscc/blob/master/src/fscc.c)
+- Complete example: [`examples\tx-modifiers.cs`](https://github.com/commtech/netfscc/blob/master/examples/tx-modifiers/tx-modifiers.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

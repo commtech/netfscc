@@ -12,43 +12,38 @@ there are a couple of methods you can use.
 
 ## Execute
 ```c
-fscc_purge(fscc_handle h, unsigned tx, unsigned rx)
+public bool Purge(bool tx, bool rx)
 ```
 
-| Parameter | Type           | Description
-| --------- | -------------- | -----------------------
-| `h`       | `fscc_handle`  | The handle to your port
-| `tx`      | `unsigned int` | Whether to purge the transmit data
-| `rx`      | `unsigned int` | Whether to purge the receive data
+| Parameter | Type   | Description
+| --------- | ------ | -----------------------
+| `tx`      | `bool` | Whether to purge the transmit data
+| `rx`      | `bool` | Whether to purge the receive data
 
-| Return Value   | Cause
-| -------------- | ------------------------------------------------------------------
-| 0              | Success
-| `FSCC_TIMEOUT` | You are executing a command that requires a transmit clock present
 
 ###### Examples
 Purge both the transmit and receive data.
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_purge(h, 1, 1);
+p.Purge(true, true)
 ```
 
 Purge only the transmit data.
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_purge(h, 1, 0);
+p.Purge(true, false)
 ```
 
 Purge only the receive data.
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_purge(h, 0, 1);
+p.Purge(false, true)
 ```
 
 ###### Support
@@ -58,5 +53,5 @@ fscc_purge(h, 0, 1);
 
 
 ### Additional Resources
-- Complete example: [`examples\purge.c`](https://github.com/commtech/cfscc/blob/master/examples/purge/purge.c)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/cfscc/blob/master/src/fscc.c)
+- Complete example: [`examples\purge.cs`](https://github.com/commtech/cfscc/blob/master/examples/purge/purge.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/cfscc/blob/master/src/Fscc.cs)

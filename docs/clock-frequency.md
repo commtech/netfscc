@@ -1,4 +1,5 @@
 # Clock Frequency
+
 The FSCC device has a programmable clock that can be set anywhere from
 20 KHz to 200 MHz. However, this is not the full operational range of an
 FSCC port, only the range that the onboard clock can be set to.
@@ -20,35 +21,24 @@ desired baud rate using the BGR register.
 
 
 ## Set
-```c
-int fscc_set_clock_frequency(fscc_handle h, unsigned frequency)
+```c#
+public uint ClockFrequency
 ```
 
-| Parameter    | Type          | Description
-| ------------ | ------------- | -----------------------
-| `h`          | `fscc_handle` | The handle to your port
-| `frequency`  | `unsigned`    | The new clock frequency (hz)
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
-
 ###### Examples
-Set the port's clock frequency to 18.432 MHz.
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-fscc_set_clock_frequency(h, 18432000);
+p.ClockFrequency = 18432000;
 ```
 
 ###### Support
 | Code           | Version
 | -------------- | --------
-| `cfscc`        | `v1.0.0`
+| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources
-- Complete example: [`examples\clock-frequency.c`](https://github.com/commtech/cfscc/blob/master/examples/clock-frequency/clock-frequency.c)
-- Implemenation details: [`src\fscc.c`](https://github.com/commtech/cfscc/blob/master/src/fscc.c)
+- Complete example: [`examples\clock-frequency.cs`](https://github.com/commtech/netfscc/blob/master/examples/clock-frequency/clock-frequency.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)
