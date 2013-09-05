@@ -103,7 +103,7 @@ namespace Fscc
 
         public Port(uint port_num)
         {
-            int e = fscc_connect(port_num, false, out this.Handle);
+            int e = fscc_connect(port_num, true, out this.Handle);
 
             if (e >= 1)
                 throw new Exception(e.ToString());
@@ -326,26 +326,34 @@ namespace Fscc
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_write(IntPtr h, byte[] buf, uint size, out uint bytes_written, IntPtr overlapped);
 
-        public uint Write(byte[] buf, uint size, out NativeOverlapped o)
+        [DllImport("kernel32.dll", SetLastError=true)]
+        public static extern bool GetOverlappedResult(
+            IntPtr hDevice,
+            out NativeOverlapped lpOverlapped,
+            out uint lpNumberOfBytesTransferred,
+            bool bWait
+        );
+
+        public int Write(byte[] buf, uint size, out NativeOverlapped o)
         {
             uint bytes_written;
 
             int e = fscc_write(this.Handle, buf, size, out bytes_written, out o);
 
-            if (e >= 1)
+            if (e >= 1 && e != 997)
                 throw new Exception(e.ToString());
 
-            return bytes_written;
+            return e;
         }
 
         public uint Write(byte[] buf, uint size)
         {
-            uint bytes_written;
+            NativeOverlapped o = new NativeOverlapped();
+            uint bytes_written = 0;
 
-            int e = fscc_write(this.Handle, buf, size, out bytes_written, IntPtr.Zero);
+            Write(buf, size, out o);
 
-            if (e >= 1)
-                throw new Exception(e.ToString());
+            GetOverlappedResult(this.Handle, out o, out bytes_written, true);
 
             return bytes_written;
         }
@@ -364,26 +372,26 @@ namespace Fscc
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_read_with_timeout(IntPtr h, byte[] buf, uint size, out uint bytes_read, uint timeout);
 
-        public uint Read(byte[] buf, uint size, out NativeOverlapped o)
+        public int Read(byte[] buf, uint size, out NativeOverlapped o)
         {
             uint bytes_read;
 
             int e = fscc_read(this.Handle, buf, size, out bytes_read, out o);
 
-            if (e >= 1)
+            if (e >= 1 && e != 997)
                 throw new Exception(e.ToString());
 
-            return bytes_read;
+            return e;
         }
 
         public uint Read(byte[] buf, uint size)
         {
-            uint bytes_read;
+            NativeOverlapped o = new NativeOverlapped();
+            uint bytes_read = 0;
 
-            int e = fscc_read(this.Handle, buf, size, out bytes_read, IntPtr.Zero);
+            Read(buf, size, out o);
 
-            if (e >= 1)
-                throw new Exception(e.ToString());
+            GetOverlappedResult(this.Handle, out o, out bytes_read, true);
 
             return bytes_read;
         }
@@ -407,6 +415,17 @@ namespace Fscc
             uint bytes_read = 0;
 
             bytes_read = Read(input_bytes, (uint)input_bytes.Length);
+
+            return encoder.GetString(input_bytes, 0, (int)bytes_read);
+        }
+
+        public string Read(uint count, uint timeout)
+        {
+            System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
+            byte[] input_bytes = new byte[count];
+            uint bytes_read = 0;
+
+            bytes_read = Read(input_bytes, (uint)input_bytes.Length, timeout);
 
             return encoder.GetString(input_bytes, 0, (int)bytes_read);
         }
