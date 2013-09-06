@@ -22,6 +22,7 @@ namespace Fscc
         IntPtr _handle;
         uint _port_num;
         Registers _registers;
+        MemoryCap _memcap;
 
         public override string ToString()
         {
@@ -40,6 +41,7 @@ namespace Fscc
 
             this._port_num = port_num;
             this._registers = new Registers(this._handle);
+            this._memcap = new MemoryCap(this._handle);
         }
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
@@ -379,6 +381,14 @@ namespace Fscc
             get
             {
                 return this._registers;
+            }
+        }
+
+        public MemoryCap MemoryCap
+        {
+            get
+            {
+                return this._memcap;
             }
         }
     }
@@ -870,6 +880,101 @@ namespace Fscc
                 r.FCR = FSCC_UPDATE_VALUE;
 
                 return (UInt32)GetRegisters(r).FCR;
+            }
+        }
+    }
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct _MemoryCap
+    {
+        public int input;
+        public int output;
+
+        public _MemoryCap(bool init)
+        {
+            input = -1;
+            output = -1;
+        }
+    };
+
+    public class MemoryCap {
+        IntPtr _handle;
+
+        public MemoryCap(IntPtr h)
+        {
+            this._handle = h;
+        }
+
+        [DllImport(Port.DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_set_memory_cap(IntPtr h, IntPtr memcap);
+
+        [DllImport(Port.DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_get_memory_cap(IntPtr h, IntPtr memcap);
+
+        private _MemoryCap GetMemoryCap(_MemoryCap m)
+        {
+            IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(m));
+            Marshal.StructureToPtr(m, buffer, false);
+
+            int e = fscc_get_memory_cap(this._handle, buffer);
+
+            m = (_MemoryCap)Marshal.PtrToStructure(buffer, typeof(_MemoryCap));
+            Marshal.FreeHGlobal(buffer);
+
+            if (e >= 1)
+                throw new Exception(e.ToString());
+
+            return m;
+        }
+
+        private void SetMemoryCap(_MemoryCap m)
+        {
+            IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(m));
+            Marshal.StructureToPtr(m, buffer, false);
+
+            int e = fscc_set_memory_cap(this._handle, buffer);
+
+            Marshal.FreeHGlobal(buffer);
+
+            if (e >= 1)
+                throw new Exception(e.ToString());
+        }
+
+        public uint Input
+        {
+            set
+            {
+                _MemoryCap m = new _MemoryCap(true);
+
+                m.input = (int)value;
+
+                SetMemoryCap(m);
+            }
+
+            get
+            {
+                _MemoryCap m = new _MemoryCap(true);
+
+                return (uint)GetMemoryCap(m).input;
+            }
+        }
+
+        public uint Output
+        {
+            set
+            {
+                _MemoryCap m = new _MemoryCap(true);
+
+                m.output = (int)value;
+
+                SetMemoryCap(m);
+            }
+
+            get
+            {
+                _MemoryCap m = new _MemoryCap(true);
+
+                return (uint)GetMemoryCap(m).output;
             }
         }
     }
