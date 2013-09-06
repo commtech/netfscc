@@ -73,24 +73,24 @@ public class Loop
 		p.TxModifiers = TransmitModifiers.XF;
 		p.IgnoreTimeout = false;
 
-		p.FIFOT = 0x08001000;
-		p.CCR0 = 0x0011201c;
-		p.CCR1 = 0x00000018;
-		p.CCR2 = 0x00000000;
-		p.BGR = 0x00000000;
-		p.SSR = 0x0000007e;
-		p.SMR = 0x00000000;
-		p.TSR = 0x0000007e;
-		p.TMR = 0x00000000;
-		p.RAR = 0x00000000;
-		p.RAMR = 0x00000000;
-		p.PPR = 0x00000000;
-		p.TCR = 0x00000000;
-		p.IMR = 0x0f000000;
-		p.DPLLR = 0x00000004;
-		p.FCR = 0x00000000;
+		p.Registers.FIFOT = 0x08001000;
+		p.Registers.CCR0 = 0x0011201c;
+		p.Registers.CCR1 = 0x00000018;
+		p.Registers.CCR2 = 0x00000000;
+		p.Registers.BGR = 0x00000000;
+		p.Registers.SSR = 0x0000007e;
+		p.Registers.SMR = 0x00000000;
+		p.Registers.TSR = 0x0000007e;
+		p.Registers.TMR = 0x00000000;
+		p.Registers.RAR = 0x00000000;
+		p.Registers.RAMR = 0x00000000;
+		p.Registers.PPR = 0x00000000;
+		p.Registers.TCR = 0x00000000;
+		p.Registers.IMR = 0x0f000000;
+		p.Registers.DPLLR = 0x00000004;
+		p.Registers.FCR = 0x00000000;
 
-		p.SetClockFrequency(1000000);
+		p.ClockFrequency = 1000000;
 
 		p.Purge(true, true);
 	}
