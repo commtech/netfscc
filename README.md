@@ -77,7 +77,8 @@ own program. All of these options are described on their respective documentatio
 - [Purge](https://github.com/commtech/netfscc/blob/master/docs/purge.md)
 - [Registers](https://github.com/commtech/netfscc/blob/master/docs/registers.md)
 - [TX Modifiers](https://github.com/commtech/netfscc/blob/master/docs/tx-modifiers.md)
-- [Read](https://github.com/commtech/netfscc/blob/master/docs/sync-read.md)
+- [Write](https://github.com/commtech/netfscc/blob/master/docs/write.md)
+- [Read](https://github.com/commtech/netfscc/blob/master/docs/read.md)
 
 
 ## Dependencies
