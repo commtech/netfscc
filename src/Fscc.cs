@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace Fscc
 {
-    public enum TransmitModifiers { XF = 0, XREP = 1, TXT = 2, TXEXT = 4 };
+    public enum TxModifiers { XF = 0, XREP = 1, TXT = 2, TXEXT = 4 };
 
     public class Port
     {
@@ -58,7 +58,7 @@ namespace Fscc
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_get_tx_modifiers(IntPtr h, out uint modifiers);
 
-        public TransmitModifiers TxModifiers
+        public TxModifiers TxModifiers
         {
             set
             {
@@ -77,7 +77,7 @@ namespace Fscc
                 if (e >= 1)
                     throw new Exception(e.ToString());
 
-                return (TransmitModifiers)modifiers;
+                return (TxModifiers)modifiers;
             }
         }
 
