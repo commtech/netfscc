@@ -1,20 +1,16 @@
-#include <stdlib.h> /* EXIT_SUCCESS */
-#include <fscc.h> /* fscc_connect, fscc_disconnect, fscc_handle
-                     fscc_{get, enable, disable}_ignore_timeout */
+using Fscc;
 
-int main(void)
+public class Tutorial
 {
-	fscc_handle h;
-	unsigned status;
+    public static int Main(string[] args)
+	{
+        Fscc.Port p = new Fscc.Port(0);
 
-	fscc_connect(0, 0, &h);
+        var status = p.IgnoreTimeout;
+        
+        p.IgnoreTimeout = true;
+        p.IgnoreTimeout = false;
 
-	fscc_get_ignore_timeout(h, &status);
-
-	fscc_enable_ignore_timeout(h);
-	fscc_disable_ignore_timeout(h);
-
-	fscc_disconnect(h);
-
-	return EXIT_SUCCESS;
+		return 0;
+	}
 }

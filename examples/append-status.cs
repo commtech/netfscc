@@ -1,20 +1,16 @@
-#include <stdlib.h> /* EXIT_SUCCESS */
-#include <fscc.h> /* fscc_connect, fscc_disconnect, fscc_handle
-                     fscc_{get, enable, disable}_append_status */
+using Fscc;
 
-int main(void)
+public class Tutorial
 {
-	fscc_handle h;
-	unsigned status;
+    public static int Main(string[] args)
+	{
+        Fscc.Port p = new Fscc.Port(0);
 
-	fscc_connect(0, 0, &h);
+        var status = p.AppendStatus;
+        
+        p.AppendStatus = true;
+        p.AppendStatus = false;
 
-	fscc_get_append_status(h, &status);
-
-	fscc_enable_append_status(h);
-	fscc_disable_append_status(h);
-
-	fscc_disconnect(h);
-
-	return EXIT_SUCCESS;
+		return 0;
+	}
 }

@@ -1,17 +1,13 @@
-#include <stdlib.h>
-#include <fscc.h>
+using Fscc;
 
-int main(void)
+public class Tutorial
 {
-	fscc_handle h;
-    char data[] = "Hello world!";
-    unsigned bytes_written = 0;
+    public static int Main(string[] args)
+	{
+        Fscc.Port p = new Fscc.Port(0);
 
-	fscc_connect(0, 0, &h);
+        p.Write("Hello world!");
 
-	fscc_write(h, data, sizeof(data), &bytes_written, 0);
-
-	fscc_disconnect(h);
-
-	return EXIT_SUCCESS;
+		return 0;
+	}
 }

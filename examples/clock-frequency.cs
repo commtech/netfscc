@@ -1,17 +1,13 @@
-#include <stdlib.h> /* EXIT_SUCCESS */
-#include <fscc.h> /* fscc_connect, fscc_disconnect, fscc_handle
-                     fscc_set_clock_frequency */
+using Fscc;
 
-int main(void)
+public class Tutorial
 {
-	fscc_handle h;
+    public static int Main(string[] args)
+	{
+        Fscc.Port p = new Fscc.Port(0);
+        
+        p.ClockFrequency = 18432000;
 
-	fscc_connect(0, 0, &h);
-
-	/* Set the clock frequency to 1 Mhz */
-	fscc_set_clock_frequency(h, 1000000, 2);
-
-	fscc_disconnect(h);
-
-	return EXIT_SUCCESS;
+		return 0;
+	}
 }
