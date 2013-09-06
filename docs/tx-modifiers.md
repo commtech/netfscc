@@ -1,18 +1,21 @@
 # TX Modifiers
 
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
+| `netfscc`      | `v1.0.0`
+
+
+## Property
+```c#
+public TransmitModifiers TxModifiers;
+```
 
 
 ## Get
-```c#
-public TransmitModifiers TxModifiers
-```
-
 ###### Examples
 ```c#
 using Fscc;
@@ -21,17 +24,8 @@ using Fscc;
 var modifiers = p.TxModifiers;
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
-
 
 ## Set
-```c#
-public TransmitModifiers TxModifiers
-```
-
 ###### Examples
 ```c#
 using Fscc;
@@ -39,11 +33,6 @@ using Fscc;
 
 p.TxModifiers = XF | XREP;
 ```
-
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources

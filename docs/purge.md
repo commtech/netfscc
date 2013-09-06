@@ -3,16 +3,17 @@ Between the hardware FIFO and the driver's software buffers there are multiple p
 be stored, excluding your application code. If you ever need to clear this data and start fresh, 
 there are a couple of methods you can use.
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
+| `netfscc`      | `v1.0.0`
 
 
 ## Execute
 ```c
-public bool Purge(bool tx, bool rx)
+public bool Purge(bool tx, bool rx);
 ```
 
 | Parameter | Type   | Description
@@ -45,11 +46,6 @@ using Fscc;
 
 p.Purge(false, true)
 ```
-
-###### Support
-| Code           | Version
-| -------------- | --------
-| `cfscc`        | `v1.0.0`
 
 
 ### Additional Resources

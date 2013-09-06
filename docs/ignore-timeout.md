@@ -1,18 +1,21 @@
 # Ignore Timeout
 
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
+| `netfscc`      | `v1.0.0`
+
+
+## Property
+```c#
+public bool IgnoreTimeout;
+```
 
 
 ## Get
-```c#
-public bool IgnoreTimeout
-```
-
 ###### Examples
 ```c#
 using Fscc;
@@ -21,17 +24,8 @@ using Fscc;
 var status = p.IgnoreTimeout;
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
-
 
 ## Enable
-```c#
-public bool IgnoreTimeout
-```
-
 ###### Examples
 ```c#
 using Fscc;
@@ -40,24 +34,15 @@ using Fscc;
 p.IgnoreTimeout = true;
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
-
 
 ## Disable
+###### Examples
 ```c#
 using Fscc;
 ...
 
 p.AppendStatus = false;
 ```
-
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources

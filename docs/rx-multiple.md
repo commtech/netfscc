@@ -1,17 +1,20 @@
 # RX Multiple
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
+| `netfscc`      | `v1.0.0`
+
+
+## Property
+```c#
+public bool RxMultiple;
+```
 
 
 ## Get
-```c#
-public bool RxMultiple
-```
-
 ###### Examples
 ```c#
 using Fscc;
@@ -20,18 +23,8 @@ using Fscc;
 var status = p.RxMultiple;
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
-
 
 ## Enable
-```c#
-public bool RxMultiple
-```
-
-###### Examples
 ```c#
 using Fscc;
 ...
@@ -39,24 +32,15 @@ using Fscc;
 p.RxMultiple = true;
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
-
 
 ## Disable
+###### Examples
 ```c#
 using Fscc;
 ...
 
 p.RxMultiple = false;
 ```
-
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources

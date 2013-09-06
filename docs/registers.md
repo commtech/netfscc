@@ -21,135 +21,40 @@ You should purge the data stream after changing the registers.
 Settings like CCR0 will require being purged for the changes to take 
 effect.
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
+| `netfscc`      | `v1.0.0`
 
 
-## Structure
-```c
-struct fscc_registers {
-    /* BAR 0 */
-    fscc_register reserved1[2];
-
-    fscc_register FIFOT;
-
-    fscc_register reserved2[2];
-
-    fscc_register CMDR;
-    fscc_register STAR; /* Read-only */
-    fscc_register CCR0;
-    fscc_register CCR1;
-    fscc_register CCR2;
-    fscc_register BGR;
-    fscc_register SSR;
-    fscc_register SMR;
-    fscc_register TSR;
-    fscc_register TMR;
-    fscc_register RAR;
-    fscc_register RAMR;
-    fscc_register PPR;
-    fscc_register TCR;
-    fscc_register VSTR; /* Read-only */
-
-    fscc_register reserved3[1];
-
-    fscc_register IMR;
-    fscc_register DPLLR;
-
-    /* BAR 2 */
-    fscc_register FCR;
-};
+## Property
+```c#
+public Registers Registers;
 ```
-
-
-## Macros
-```c
-FSCC_REGISTERS_INIT(regs)
-```
-
-| Parameter | Type                      | Description
-| --------- | ------------------------- | -----------------------
-| `regs`    | `struct fscc_registers *` | The registers structure to initialize
-
-The `FSCC_REGISTERS_INIT` macro should be called each time you use the 
-`struct fscc_registers` structure. An initialized structure will allow you to 
-only set/receive the registers you need.
 
 
 ## Set
-```c
-int fscc_set_registers(fscc_handle h, struct fscc_registers *regs)
-```
-
-| Parameter | Type                      | Description
-| --------- | ------------------------- | -----------------------------------
-| `h`       | `fscc_handle`             | The handle to your port
-| `regs`    | `struct fscc_registers *` | The registers you would like to set
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
 ###### Examples
-```
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-struct fscc_registers registers;
-
-FSCC_REGISTERS_INIT(registers);
-
-registers.CCR0 = 0x0011201c;
-registers.BGR = 10;
-
-fscc_set_registers(h, &registers);
+p.Registers.CCR0 = 0x0011201c;
+p.Registers.BGR = 10;
 ```
-
-###### Support
-| Code           | Version
-| -------------- | --------
-| `cfscc`        | `v1.0.0`
 
 
 ## Get
-```c
-int fscc_get_registers(fscc_handle h, struct fscc_registers *regs)
-```
-
-| Parameter | Type                      | Description
-| --------- | ------------------------- | -----------------------
-| `h`       | `fscc_handle`             | The handle to your port
-| `regs`    | `struct fscc_registers *` | The register values you would like to view
-
-| Return Value | Cause
-| ------------ | ------------------------------------------------------------------
-| 0            | Success
-
 ###### Examples
-```
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-struct fscc_registers registers;
-
-FSCC_REGISTERS_INIT(registers);
-
-registers.CCR0 = FSCC_UPDATE_VALUE;
-registers.BGR = FSCC_UPDATE_VALUE;
-
-fscc_get_registers(h, &registers);
+var ccr0 = p.Registers.CCR;
+bar bgr = p.Registers.BGR;
 ```
-
-At this point `regs.CCR0` and `regs.BGR` would be set to their respective
-values.
-
-###### Support
-| Code           | Version
-| -------------- | --------
-| `cfscc`        | `v1.0.0`
 
 
 ### Additional Resources

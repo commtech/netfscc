@@ -1,17 +1,20 @@
 # Append Timestamp
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
-| `fscc-windows` | `v2.0.0` 
-| `fscc-linux`   | `v2.0.0` 
+| `fscc-windows` | `v2.4.0` 
+| `fscc-linux`   | `v2.4.0` 
+| `netfscc`      | `v1.0.0`
+
+
+###### Property
+```c#
+public bool AppendTimestamp;
+```
 
 
 ## Get
-```c#
-public bool AppendTimestamp
-```
-
 ###### Examples
 ```c#
 using Fscc;
@@ -20,17 +23,8 @@ using Fscc;
 var status = p.AppendTimestamp;
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
-
 
 ## Enable
-```c#
-public bool AppendTimestamp
-```
-
 ###### Examples
 ```c#
 using Fscc;
@@ -39,24 +33,15 @@ using Fscc;
 p.AppendTimestamp = true;
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
-
 
 ## Disable
+###### Examples
 ```c#
 using Fscc;
 ...
 
 p.AppendTimestamp = false;
 ```
-
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources

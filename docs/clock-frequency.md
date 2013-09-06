@@ -13,18 +13,20 @@ the frequency generator to finish. If you run into this situation we
 recommend using a larger frequency and then dividing it down to your 
 desired baud rate using the BGR register.
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
+| `netfscc`      | `v1.0.0`
 
 
-## Set
+## Property
 ```c#
-public uint ClockFrequency
+public uint ClockFrequency;
 ```
 
+## Set
 ###### Examples
 ```c#
 using Fscc;
@@ -32,11 +34,6 @@ using Fscc;
 
 p.ClockFrequency = 18432000;
 ```
-
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources

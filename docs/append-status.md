@@ -7,18 +7,21 @@ The FSCC reports this data to you by appending two additional bytes
 to each frame you read from the card, if you opt-in to see this data. There are
 a few methods of enabling this additional data.
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
+| `netfscc`      | `v1.0.0`
+
+
+## Property
+```c#
+public bool AppendStatus;
+```
 
 
 ## Get
-```c#
-public bool AppendStatus
-```
-
 ###### Examples
 ```c#
 using Fscc;
@@ -27,17 +30,8 @@ using Fscc;
 var status = p.AppendStatus;
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
-
 
 ## Enable
-```c#
-public bool AppendStatus
-```
-
 ###### Examples
 ```c#
 using Fscc;
@@ -46,24 +40,15 @@ using Fscc;
 p.AppendStatus = true;
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
-
 
 ## Disable
+###### Examples
 ```c#
 using Fscc;
 ...
 
 p.AppendStatus = false;
 ```
-
-###### Support
-| Code           | Version
-| -------------- | --------
-| `netfscc`        | `v1.0.0`
 
 
 ### Additional Resources
