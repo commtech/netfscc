@@ -9,10 +9,10 @@ all: $(TARGET).dll
 debug: $(TARGET)d.dll
 
 $(TARGET).dll:$(SOURCES) $(LIBS)
-  csc /linkresource:$(CFC_DIR)\cfscc.dll /t:library /out:$@ $(SOURCES) /platform:x86  
+  csc /linkresource:$(CFC_DIR)\cfscc.dll /t:library /out:$@ $(SOURCES) /platform:x86
 
 $(TARGET)d.dll:$(SOURCES) $(LIBSD)
-  csc /linkresource:$(CFC_DIR)\cfsccd.dll /t:library /out:$@ $(SOURCES) /platform:x86
+  csc /linkresource:$(CFC_DIR)\cfsccd.dll /t:library /out:$@ $(SOURCES) /platform:x86 /define:DEBUG
   
 $(LIBS):
   pushd $(CFC_DIR) & nmake & popd
