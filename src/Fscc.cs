@@ -9,8 +9,382 @@ using System.Reflection;
 
 namespace Fscc
 {
+    public enum TransmitModifiers { XF = 0, XREP = 1, TXT = 2, TXEXT = 4 };
+
+    public class Port
+    {
+#if DEBUG
+        public const string DLL_PATH = "cfsccd.dll";
+#else
+        public const string DLL_PATH = "cfscc.dll";
+#endif
+
+        IntPtr _handle;
+        uint _port_num;
+        Registers _registers;
+
+        public override string ToString()
+        {
+            return String.Format("FSCC{0}", _port_num);
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_connect(uint port_num, bool overlapped, out IntPtr h);
+
+        public Port(uint port_num)
+        {
+            int e = fscc_connect(port_num, true, out this._handle);
+
+            if (e >= 1)
+                throw new Exception(e.ToString());
+
+            this._port_num = port_num;
+            this._registers = new Registers(this._handle);
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_disconnect(IntPtr h);
+
+        ~Port()
+        {
+            fscc_disconnect(this._handle);
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_set_tx_modifiers(IntPtr h, uint modifiers);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_get_tx_modifiers(IntPtr h, out uint modifiers);
+
+        public TransmitModifiers TxModifiers
+        {
+            set
+            {
+                int e = fscc_set_tx_modifiers(this._handle, (uint)value);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+            }
+
+            get
+            {
+                uint modifiers;
+
+                int e = fscc_get_tx_modifiers(this._handle, out modifiers);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+
+                return (TransmitModifiers)modifiers;
+            }
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_enable_append_status(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_disable_append_status(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_get_append_status(IntPtr h, out bool status);
+
+        public bool AppendStatus
+        {
+            set
+            {
+                int e = 0;
+
+                if (value == true)
+                    e = fscc_enable_append_status(this._handle);
+                else
+                    e = fscc_disable_append_status(this._handle);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+            }
+
+            get
+            {
+                bool status;
+
+                int e = fscc_get_append_status(this._handle, out status);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+
+                return status;
+            }
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_enable_append_timestamp(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_disable_append_timestamp(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_get_append_timestamp(IntPtr h, out bool timestamp);
+
+        public bool AppendTimestamp
+        {
+            set
+            {
+                int e = 0;
+
+                if (value == true)
+                    e = fscc_enable_append_timestamp(this._handle);
+                else
+                    e = fscc_disable_append_timestamp(this._handle);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+            }
+
+            get
+            {
+                bool timestamp;
+
+                int e = fscc_get_append_timestamp(this._handle, out timestamp);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+
+                return timestamp;
+            }
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_enable_ignore_timeout(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_disable_ignore_timeout(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_get_ignore_timeout(IntPtr h, out bool status);
+
+        public bool IgnoreTimeout
+        {
+            set
+            {
+                int e = 0;
+
+                if (value == true)
+                    e = fscc_enable_ignore_timeout(this._handle);
+                else
+                    e = fscc_disable_ignore_timeout(this._handle);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+            }
+
+            get
+            {
+                bool status;
+
+                int e = fscc_get_ignore_timeout(this._handle, out status);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+
+                return status;
+            }
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_enable_rx_multiple(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_disable_rx_multiple(IntPtr h);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_get_rx_multiple(IntPtr h, out bool status);
+
+        public bool RxMultiple
+        {
+            set
+            {
+                int e = 0;
+
+                if (value == true)
+                    e = fscc_enable_rx_multiple(this._handle);
+                else
+                    e = fscc_disable_rx_multiple(this._handle);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+            }
+
+            get
+            {
+                bool status;
+
+                int e = fscc_get_rx_multiple(this._handle, out status);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+
+                return status;
+            }
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_purge(IntPtr h, bool tx, bool rx);
+
+        public void Purge(bool tx, bool rx)
+        {
+            fscc_purge(this._handle, tx, rx);
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_set_clock_frequency(IntPtr h, uint frequency);
+
+        public uint ClockFrequency
+        {
+            set
+            {
+                int e = 0;
+
+                e = fscc_set_clock_frequency(this._handle, value);
+
+                if (e >= 1)
+                    throw new Exception(e.ToString());
+            }
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_write(IntPtr h, byte[] buf, uint size, out uint bytes_written, out NativeOverlapped overlapped);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_write(IntPtr h, byte[] buf, uint size, out uint bytes_written, IntPtr overlapped);
+
+        [DllImport("kernel32.dll", SetLastError=true)]
+        public static extern bool GetOverlappedResult(
+            IntPtr hDevice,
+            out NativeOverlapped lpOverlapped,
+            out uint lpNumberOfBytesTransferred,
+            bool bWait
+        );
+
+        public int Write(byte[] buf, uint size, out NativeOverlapped o)
+        {
+            uint bytes_written;
+
+            int e = fscc_write(this._handle, buf, size, out bytes_written, out o);
+
+            if (e >= 1 && e != 997)
+                throw new Exception(e.ToString());
+
+            return e;
+        }
+
+        public uint Write(byte[] buf, uint size)
+        {
+            NativeOverlapped o = new NativeOverlapped();
+            uint bytes_written = 0;
+
+            Write(buf, size, out o);
+
+            GetOverlappedResult(this._handle, out o, out bytes_written, true);
+
+            return bytes_written;
+        }
+
+        public uint Write(string s)
+        {
+            return Write(Encoding.ASCII.GetBytes(s), (uint)s.Length);
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_read(IntPtr h, byte[] buf, uint size, out uint bytes_read, out NativeOverlapped overlapped);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_read(IntPtr h, byte[] buf, uint size, out uint bytes_read, IntPtr overlapped);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_read_with_timeout(IntPtr h, byte[] buf, uint size, out uint bytes_read, uint timeout);
+
+        public int Read(byte[] buf, uint size, out NativeOverlapped o)
+        {
+            uint bytes_read;
+
+            int e = fscc_read(this._handle, buf, size, out bytes_read, out o);
+
+            if (e >= 1 && e != 997)
+                throw new Exception(e.ToString());
+
+            return e;
+        }
+
+        public uint Read(byte[] buf, uint size)
+        {
+            NativeOverlapped o = new NativeOverlapped();
+            uint bytes_read = 0;
+
+            Read(buf, size, out o);
+
+            GetOverlappedResult(this._handle, out o, out bytes_read, true);
+
+            return bytes_read;
+        }
+
+        public uint Read(byte[] buf, uint size, uint timeout)
+        {
+            uint bytes_read;
+
+            int e = fscc_read_with_timeout(this._handle, buf, size, out bytes_read, timeout);
+
+            if (e >= 1)
+                throw new Exception(e.ToString());
+
+            return bytes_read;
+        }
+
+        public string Read(uint count)
+        {
+            System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
+            byte[] input_bytes = new byte[count];
+            uint bytes_read = 0;
+
+            bytes_read = Read(input_bytes, (uint)input_bytes.Length);
+
+            return encoder.GetString(input_bytes, 0, (int)bytes_read);
+        }
+
+        public string Read(uint count, uint timeout)
+        {
+            System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
+            byte[] input_bytes = new byte[count];
+            uint bytes_read = 0;
+
+            bytes_read = Read(input_bytes, (uint)input_bytes.Length, timeout);
+
+            return encoder.GetString(input_bytes, 0, (int)bytes_read);
+        }
+
+        public string Firmware
+        {
+            get
+            {
+                uint vstr = this.Registers.VSTR;
+
+                byte PREV = (byte)((vstr & 0x0000FF00) >> 8);
+                byte FREV = (byte)((vstr & 0x000000FF));
+
+                return String.Format("{0:X}.{1:X2}", PREV, FREV);
+            }
+        }
+
+        public Registers Registers
+        {
+            get
+            {
+                return this._registers;
+            }
+        }
+    }
+
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct Registers
+    public struct _Registers
     {
         /* BAR 0 */
         private Int64 __reserved11;
@@ -45,445 +419,106 @@ namespace Fscc
         /* BAR 2 */
         public Int64 FCR;
 
-        public Registers(bool init) 
+        public _Registers(bool init)
         {
-            const int FSCC_UPDATE_VALUE = -2;
-
             /* BAR 0 */
             __reserved11 = -1;
             __reserved12 = -1;
 
-            FIFOT = FSCC_UPDATE_VALUE;
+            FIFOT = -1;
 
             __reserved21 = -1;
             __reserved22 = -1;
 
-            CMDR = FSCC_UPDATE_VALUE;
-            STAR = FSCC_UPDATE_VALUE; /* Read-only */
-            CCR0 = FSCC_UPDATE_VALUE;
-            CCR1 = FSCC_UPDATE_VALUE;
-            CCR2 = FSCC_UPDATE_VALUE;
-            BGR = FSCC_UPDATE_VALUE;
-            SSR = FSCC_UPDATE_VALUE;
-            SMR = FSCC_UPDATE_VALUE;
-            TSR = FSCC_UPDATE_VALUE;
-            TMR = FSCC_UPDATE_VALUE;
-            RAR = FSCC_UPDATE_VALUE;
-            RAMR = FSCC_UPDATE_VALUE;
-            PPR = FSCC_UPDATE_VALUE;
-            TCR = FSCC_UPDATE_VALUE;
-            VSTR = FSCC_UPDATE_VALUE;
+            CMDR = -1;
+            STAR = -1; /* Read-only */
+            CCR0 = -1;
+            CCR1 = -1;
+            CCR2 = -1;
+            BGR = -1;
+            SSR = -1;
+            SMR = -1;
+            TSR = -1;
+            TMR = -1;
+            RAR = -1;
+            RAMR = -1;
+            PPR = -1;
+            TCR = -1;
+            VSTR = -1;
 
             __reserved41 = -1;
 
-            IMR = FSCC_UPDATE_VALUE;
-            DPLLR = FSCC_UPDATE_VALUE;
+            IMR = -1;
+            DPLLR = -1;
 
             /* BAR 2 */
-            FCR = FSCC_UPDATE_VALUE;
+            FCR = -1;
         }
+
     };
 
-    public enum TransmitModifiers { XF = 0, XREP = 1, TXT = 2, TXEXT = 4 };
+    public class Registers {
+        IntPtr _handle;
+        const int FSCC_UPDATE_VALUE = -2;
 
-    public class Port
-    {
-        const string DLL_PATH = "cfscc.dll";
-
-        IntPtr Handle;
-        uint port_num;
-
-        public override string ToString()
+        public Registers(IntPtr h)
         {
-            return String.Format("FSCC{0}", port_num);
+            this._handle = h;
         }
 
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_connect(uint port_num, bool overlapped, out IntPtr h);
-
-        public Port(uint port_num)
-        {
-            int e = fscc_connect(port_num, true, out this.Handle);
-
-            if (e >= 1)
-                throw new Exception(e.ToString());
-
-            this.port_num = port_num;
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_disconnect(IntPtr h);
-
-        ~Port()
-        {
-            fscc_disconnect(this.Handle);
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_set_tx_modifiers(IntPtr h, uint modifiers);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_get_tx_modifiers(IntPtr h, out uint modifiers);
-
-        public TransmitModifiers TxModifiers
-        {
-            set
-            {
-                int e = fscc_set_tx_modifiers(this.Handle, (uint)value);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-            }
-
-            get
-            {
-                uint modifiers;
-
-                int e = fscc_get_tx_modifiers(this.Handle, out modifiers);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-
-                return (TransmitModifiers)modifiers;
-            }
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_enable_append_status(IntPtr h);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_disable_append_status(IntPtr h);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_get_append_status(IntPtr h, out bool status);
-
-        public bool AppendStatus
-        {
-            set
-            {
-                int e = 0;
-
-                if (value == true)
-                    e = fscc_enable_append_status(this.Handle);
-                else
-                    e = fscc_disable_append_status(this.Handle);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-            }
-
-            get
-            {
-                bool status;
-
-                int e = fscc_get_append_status(this.Handle, out status);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-
-                return status;
-            }
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_enable_append_timestamp(IntPtr h);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_disable_append_timestamp(IntPtr h);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_get_append_timestamp(IntPtr h, out bool timestamp);
-
-        public bool AppendTimestamp
-        {
-            set
-            {
-                int e = 0;
-
-                if (value == true)
-                    e = fscc_enable_append_timestamp(this.Handle);
-                else
-                    e = fscc_disable_append_timestamp(this.Handle);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-            }
-
-            get
-            {
-                bool timestamp;
-
-                int e = fscc_get_append_timestamp(this.Handle, out timestamp);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-
-                return timestamp;
-            }
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_enable_ignore_timeout(IntPtr h);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_disable_ignore_timeout(IntPtr h);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_get_ignore_timeout(IntPtr h, out bool status);
-
-        public bool IgnoreTimeout
-        {
-            set
-            {
-                int e = 0;
-
-                if (value == true)
-                    e = fscc_enable_ignore_timeout(this.Handle);
-                else
-                    e = fscc_disable_ignore_timeout(this.Handle);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-            }
-
-            get
-            {
-                bool status;
-
-                int e = fscc_get_ignore_timeout(this.Handle, out status);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-
-                return status;
-            }
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_enable_rx_multiple(IntPtr h);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_disable_rx_multiple(IntPtr h);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_get_rx_multiple(IntPtr h, out bool status);
-
-        public bool RxMultiple
-        {
-            set
-            {
-                int e = 0;
-
-                if (value == true)
-                    e = fscc_enable_rx_multiple(this.Handle);
-                else
-                    e = fscc_disable_rx_multiple(this.Handle);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-            }
-
-            get
-            {
-                bool status;
-
-                int e = fscc_get_rx_multiple(this.Handle, out status);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-
-                return status;
-            }
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_purge(IntPtr h, bool tx, bool rx);
-
-        public void Purge(bool tx, bool rx)
-        {
-            fscc_purge(this.Handle, tx, rx);
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_set_clock_frequency(IntPtr h, uint frequency);
-
-        public uint ClockFrequency
-        {
-            set
-            {
-                int e = 0;
-
-                e = fscc_set_clock_frequency(this.Handle, value);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-            }
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_write(IntPtr h, byte[] buf, uint size, out uint bytes_written, out NativeOverlapped overlapped);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_write(IntPtr h, byte[] buf, uint size, out uint bytes_written, IntPtr overlapped);
-
-        [DllImport("kernel32.dll", SetLastError=true)]
-        public static extern bool GetOverlappedResult(
-            IntPtr hDevice,
-            out NativeOverlapped lpOverlapped,
-            out uint lpNumberOfBytesTransferred,
-            bool bWait
-        );
-
-        public int Write(byte[] buf, uint size, out NativeOverlapped o)
-        {
-            uint bytes_written;
-
-            int e = fscc_write(this.Handle, buf, size, out bytes_written, out o);
-
-            if (e >= 1 && e != 997)
-                throw new Exception(e.ToString());
-
-            return e;
-        }
-
-        public uint Write(byte[] buf, uint size)
-        {
-            NativeOverlapped o = new NativeOverlapped();
-            uint bytes_written = 0;
-
-            Write(buf, size, out o);
-
-            GetOverlappedResult(this.Handle, out o, out bytes_written, true);
-
-            return bytes_written;
-        }
-
-        public uint Write(string s)
-        {
-            return Write(Encoding.ASCII.GetBytes(s), (uint)s.Length);
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_read(IntPtr h, byte[] buf, uint size, out uint bytes_read, out NativeOverlapped overlapped);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_read(IntPtr h, byte[] buf, uint size, out uint bytes_read, IntPtr overlapped);
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_read_with_timeout(IntPtr h, byte[] buf, uint size, out uint bytes_read, uint timeout);
-
-        public int Read(byte[] buf, uint size, out NativeOverlapped o)
-        {
-            uint bytes_read;
-
-            int e = fscc_read(this.Handle, buf, size, out bytes_read, out o);
-
-            if (e >= 1 && e != 997)
-                throw new Exception(e.ToString());
-
-            return e;
-        }
-
-        public uint Read(byte[] buf, uint size)
-        {
-            NativeOverlapped o = new NativeOverlapped();
-            uint bytes_read = 0;
-
-            Read(buf, size, out o);
-
-            GetOverlappedResult(this.Handle, out o, out bytes_read, true);
-
-            return bytes_read;
-        }
-
-        public uint Read(byte[] buf, uint size, uint timeout)
-        {
-            uint bytes_read;
-
-            int e = fscc_read_with_timeout(this.Handle, buf, size, out bytes_read, timeout);
-
-            if (e >= 1)
-                throw new Exception(e.ToString());
-
-            return bytes_read;
-        }
-
-        public string Read(uint count)
-        {
-            System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
-            byte[] input_bytes = new byte[count];
-            uint bytes_read = 0;
-
-            bytes_read = Read(input_bytes, (uint)input_bytes.Length);
-
-            return encoder.GetString(input_bytes, 0, (int)bytes_read);
-        }
-
-        public string Read(uint count, uint timeout)
-        {
-            System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
-            byte[] input_bytes = new byte[count];
-            uint bytes_read = 0;
-
-            bytes_read = Read(input_bytes, (uint)input_bytes.Length, timeout);
-
-            return encoder.GetString(input_bytes, 0, (int)bytes_read);
-        }
-
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Port.DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_set_registers(IntPtr h, IntPtr registers);
 
-        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Port.DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_get_registers(IntPtr h, IntPtr registers);
 
-        protected Registers Registers
+        private _Registers GetRegisters(_Registers r)
         {
-            set
-            {
-                IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(value));
-                Marshal.StructureToPtr(value, buffer, false);
+            IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(r));
+            Marshal.StructureToPtr(r, buffer, false);
 
-                int e = fscc_set_registers(this.Handle, buffer);
+            int e = fscc_get_registers(this._handle, buffer);
 
-                Marshal.FreeHGlobal(buffer);
+            r = (_Registers)Marshal.PtrToStructure(buffer, typeof(_Registers));
+            Marshal.FreeHGlobal(buffer);
 
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-            }
+            if (e >= 1)
+                throw new Exception(e.ToString());
 
-            get
-            {
-                Registers r = new Registers(true);
+            return r;
+        }
 
-                IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(r));
-                Marshal.StructureToPtr(r, buffer, false);
+        private void SetRegisters(_Registers r)
+        {
+            IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(r));
+            Marshal.StructureToPtr(r, buffer, false);
 
-                int e = fscc_get_registers(this.Handle, buffer);
+            int e = fscc_set_registers(this._handle, buffer);
 
-                r = (Registers)Marshal.PtrToStructure(buffer, typeof(Registers));
-                Marshal.FreeHGlobal(buffer);
+            Marshal.FreeHGlobal(buffer);
 
-                if (e >= 1)
-                    throw new Exception(e.ToString());
-
-                return r;
-            }
+            if (e >= 1)
+                throw new Exception(e.ToString());
         }
 
         public UInt32 FIFOT
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.FIFOT = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.FIFOT;
+                _Registers r = new _Registers(true);
+
+                r.FIFOT = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).FIFOT;
             }
         }
 
@@ -491,11 +526,11 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.CMDR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
         }
 
@@ -503,7 +538,11 @@ namespace Fscc
         {
             get
             {
-                return (UInt32)this.Registers.STAR;
+                _Registers r = new _Registers(true);
+
+                r.STAR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).STAR;
             }
         }
 
@@ -511,16 +550,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.CCR0 = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.CCR0;
+                _Registers r = new _Registers(true);
+
+                r.CCR0 = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).CCR0;
             }
         }
 
@@ -528,16 +571,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.CCR1 = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.CCR1;
+                _Registers r = new _Registers(true);
+
+                r.CCR1 = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).CCR1;
             }
         }
 
@@ -545,16 +592,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.CCR2 = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.CCR2;
+                _Registers r = new _Registers(true);
+
+                r.CCR2 = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).CCR2;
             }
         }
 
@@ -562,16 +613,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.BGR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.BGR;
+                _Registers r = new _Registers(true);
+
+                r.BGR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).BGR;
             }
         }
 
@@ -579,16 +634,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.SSR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.SSR;
+                _Registers r = new _Registers(true);
+
+                r.SSR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).SSR;
             }
         }
 
@@ -596,16 +655,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.SMR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.SMR;
+                _Registers r = new _Registers(true);
+
+                r.SMR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).SMR;
             }
         }
 
@@ -613,16 +676,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.TSR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.TSR;
+                _Registers r = new _Registers(true);
+
+                r.TSR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).TSR;
             }
         }
 
@@ -630,16 +697,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.TMR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.TMR;
+                _Registers r = new _Registers(true);
+
+                r.TMR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).TMR;
             }
         }
 
@@ -647,16 +718,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.RAR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.RAR;
+                _Registers r = new _Registers(true);
+
+                r.RAR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).RAR;
             }
         }
 
@@ -664,16 +739,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.RAMR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.RAMR;
+                _Registers r = new _Registers(true);
+
+                r.RAMR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).RAMR;
             }
         }
 
@@ -681,18 +760,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.PPR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                Registers r = this.Registers;
+                _Registers r = new _Registers(true);
 
-                return (UInt32)r.PPR;
+                r.PPR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).PPR;
             }
         }
 
@@ -700,16 +781,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.TCR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.TCR;
+                _Registers r = new _Registers(true);
+
+                r.TCR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).TCR;
             }
         }
 
@@ -717,9 +802,11 @@ namespace Fscc
         {
             get
             {
-                Registers r = this.Registers;
+                _Registers r = new _Registers(true);
 
-                return (UInt32)r.VSTR;
+                r.VSTR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).VSTR;
             }
         }
 
@@ -727,16 +814,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.IMR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.IMR;
+                _Registers r = new _Registers(true);
+
+                r.IMR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).IMR;
             }
         }
 
@@ -744,16 +835,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.DPLLR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.DPLLR;
+                _Registers r = new _Registers(true);
+
+                r.DPLLR = FSCC_UPDATE_VALUE;
+
+                return (UInt32)GetRegisters(r).DPLLR;
             }
         }
 
@@ -761,29 +856,20 @@ namespace Fscc
         {
             set
             {
-                Registers r = new Registers(true);
+                _Registers r = new _Registers(true);
 
                 r.FCR = value;
 
-                this.Registers = r;
+                SetRegisters(r);
             }
 
             get
             {
-                return (UInt32)this.Registers.FCR;
-            }
-        }
+                _Registers r = new _Registers(true);
 
-        public string Firmware
-        {
-            get
-            {
-                uint vstr = this.VSTR;
+                r.FCR = FSCC_UPDATE_VALUE;
 
-                byte PREV = (byte)((this.VSTR & 0x0000FF00) >> 8);
-                byte FREV = (byte)((this.VSTR & 0x000000FF));
-
-                return String.Format("{0:X}.{1:X2}", PREV, FREV);
+                return (UInt32)GetRegisters(r).FCR;
             }
         }
     }
