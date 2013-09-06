@@ -53,7 +53,7 @@ using Fscc;
 ...
 
 var ccr0 = p.Registers.CCR;
-bar bgr = p.Registers.BGR;
+var bgr = p.Registers.BGR;
 ```
 
 
