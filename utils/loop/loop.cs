@@ -68,6 +68,9 @@ public class Loop
 	{
 		System.Console.WriteLine("Restoring to default settings.");
 
+		p.MemoryCap.Input = 1000000;
+		p.MemoryCap.Output = 1000000;
+
 		p.RxMultiple = false;
 		p.AppendStatus = false;
 		p.AppendTimestamp = false;
