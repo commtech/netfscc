@@ -3,7 +3,7 @@ using Fscc;
 public class Tutorial
 {
     public static int Main(string[] args)
-	{
+    {
         Fscc.Port p = new Fscc.Port(0);
 
         // Purge TX
@@ -15,6 +15,6 @@ public class Tutorial
         // Purge both TX & RX
         p.Purge(true, true);
 
-		return 0;
-	}
+        return 0;
+    }
 }

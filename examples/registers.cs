@@ -12,6 +12,6 @@ public class Tutorial
         var ccr1 = p.Registers.CCR1;
         var ccr2 = p.Registers.CCR2;
 
-		return 0;
-	}
+        return 0;
+    }
 }

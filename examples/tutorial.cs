@@ -3,21 +3,21 @@ using System;
 
 public class Tutorial
 {
-	public static int Main(string[] args)
-	{
-		string odata = "Hello world!";
-		string idata;
+    public static int Main(string[] args)
+    {
+        string odata = "Hello world!";
+        string idata;
 
    		Fscc.Port p = new Fscc.Port(0);
    		
-        /* Send "Hello world!" text */
+        // Send "Hello world!" text
         p.Write(odata);
 
-        /* Read the data back in (with our loopback connector) */
-		idata = p.Read((uint)odata.Length);
+        // Read the data back in (with our loopback connector)
+        idata = p.Read((uint)odata.Length);
 
         Console.WriteLine(idata);
 
-		return 0;
-	}
+        return 0;
+    }
 }

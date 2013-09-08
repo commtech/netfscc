@@ -32,7 +32,7 @@ using Fscc;
 ...
 
 p.MemoryCap.Input = 1000000;
-p.MemoryCap.Output = 1000000;
+p.MemoryCap.Output = 2000000;
 ```
 
 

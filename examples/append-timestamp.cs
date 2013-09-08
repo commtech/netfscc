@@ -4,7 +4,7 @@ using System;
 public class Tutorial
 {
     public static int Main(string[] args)
-	{
+    {
         Fscc.Port p = new Fscc.Port(0);
 
         var status = p.AppendTimestamp;
@@ -12,6 +12,6 @@ public class Tutorial
         p.AppendTimestamp = true;
         p.AppendTimestamp = false;
 
-		return 0;
-	}
+        return 0;
+    }
 }

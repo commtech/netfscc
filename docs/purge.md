@@ -21,6 +21,12 @@ public bool Purge(bool tx, bool rx);
 | `tx`      | `bool` | Whether to purge the transmit data
 | `rx`      | `bool` | Whether to purge the receive data
 
+```c
+public bool Purge();
+```
+
+This version purges both the transmit and receive sides.
+
 
 ###### Examples
 Purge both the transmit and receive data.
