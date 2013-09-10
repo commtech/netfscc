@@ -316,9 +316,9 @@ namespace Fscc
             return bytes_written;
         }
 
-        public uint Write(string s)
+        public uint Write(string str)
         {
-            return Write(Encoding.ASCII.GetBytes(s), (uint)s.Length);
+            return Write(Encoding.ASCII.GetBytes(str), (uint)str.Length);
         }
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
@@ -366,10 +366,10 @@ namespace Fscc
             return bytes_read;
         }
 
-        public string Read(uint count)
+        public string Read(uint size)
         {
             System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
-            byte[] input_bytes = new byte[count];
+            byte[] input_bytes = new byte[size];
             uint bytes_read = 0;
 
             bytes_read = Read(input_bytes, (uint)input_bytes.Length);
@@ -377,10 +377,15 @@ namespace Fscc
             return encoder.GetString(input_bytes, 0, (int)bytes_read);
         }
 
-        public string Read(uint count, uint timeout)
+        public string Read()
+        {
+            return Read(4096);
+        }
+
+        public string Read(uint size, uint timeout)
         {
             System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
-            byte[] input_bytes = new byte[count];
+            byte[] input_bytes = new byte[size];
             uint bytes_read = 0;
 
             bytes_read = Read(input_bytes, (uint)input_bytes.Length, timeout);
