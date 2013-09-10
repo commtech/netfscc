@@ -27,25 +27,24 @@ We won't duplicate the documentation here, but for your reference, here is an [a
 (http://blogs.msdn.com/b/oldnewthing/archive/2011/02/02/10123392.aspx) on a common
 bug developers introduce while trying to cancel I/O operations when using OVERLAPPED I/O.
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
+| `netfscc`      | `v1.0.0`
 
 
-## Read
-```c
-int fscc_read(fscc_handle h, char *buf, unsigned size, unsigned *bytes_read, OVERLAPPED *o)
+## Read (Overlapped)
+```c#
+int Read(byte[] buf, uint size, out NativeOverlapped o)
 ```
 
-| Parameter    | Type             | Description
-| ------------ | ---------------- | -----------------------
-| `h`          | `fscc_handle`    | The handle to your port
-| `buf`        | `char *`         | The data buffer to hold incoming data
-| `size`       | `unsigned`       | The data buffer size
-| `bytes_read` | `unsigned *`     | How many bytes were returned from the read
-| `o`          | `OVERLAPPED *`   | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
+| Parameter    | Type                   | Description
+| ------------ | ---------------------- | -----------------------
+| `buf`        | `byte []`              | The data buffer to hold incoming data
+| `size`       | `uint`                 | The data buffer size
+| `o`          | `out NativeOverlapped` | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
 
 | Return Value            | Cause
 | ----------------------- | ------------------------------------------------------------------
@@ -53,55 +52,111 @@ int fscc_read(fscc_handle h, char *buf, unsigned size, unsigned *bytes_read, OVE
 | `FSCC_BUFFER_TOO_SMALL` | The read size is smaller than the next frame (in a frame based mode)
 
 ###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-char idata[20] = {0};
-unsigned bytes_read;
+var idata = new byte[20];
+var bytes_read = 0;
 
-fscc_read(h, idata, sizeof(idata), &bytes_read, NULL);
+bytes_read = p.Read(idata, (uint)idata.Length, o);
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `cfscc`        | `v1.0.0`
+
+## Read (Blocking)
+```c#
+uint Read(byte[] buf, uint size)
+```
+
+| Parameter    | Type      | Description
+| ------------ | --------- | -----------------------
+| `buf`        | `byte []` | The data buffer to hold incoming data
+| `size`       | `uint`    | The data buffer size
+
+| Return
+| ---------------------------
+| Number of bytes read
+
+###### Examples
+```c#
+using Fscc;
+...
+
+var idata = new byte[20];
+var bytes_read = 0;
+
+bytes_read = p.Read(idata, (uint)idata.Length);
+```
 
 
 ## Read (Timeout)
-```c
-int fscc_read_with_timeout(fscc_handle h, char *buf, unsigned size, unsigned *bytes_read, unsigned timeout)
+```c#
+uint Read(byte[] buf, uint size, uint timeout)
 ```
 
-| Parameter    | Type             | Description
-| ------------ | ---------------- | -----------------------
-| `h`          | `fscc_handle`    | The handle to your port
-| `buf`        | `char *`         | The data buffer to hold incoming data
-| `size`       | `unsigned`       | The data buffer size
-| `bytes_read` | `unsigned *`     | How many bytes were returned from the read
-| `timeout`    | `unsigned`       | Number of milliseconds to wait for data before timing out
+| Parameter    | Type      | Description
+| ------------ | --------- | -----------------------
+| `buf`        | `byte []` | The data buffer to hold incoming data
+| `size`       | `uint`    | The data buffer size
+| `timeout`    | `uint`    | Number of milliseconds to wait for data
 
-| Return Value            | Cause
-| ----------------------- | ------------------------------------------------------------------
-| 0                       | Success
-| `FSCC_BUFFER_TOO_SMALL` | The read size is smaller than the next frame (in a frame based mode)
+| Return
+| ---------------------------
+| Number of bytes read
 
 ###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-char idata[20] = {0};
-unsigned bytes_read;
+var idata = new byte[20];
+var bytes_read = 0;
 
-fscc_read_with_timeout(h, idata, sizeof(idata), &bytes_read, 100);
+bytes_read = p.Read(idata, (uint)idata.Length, 100);
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `cfscc`        | `v1.0.0`
+## Read (Blocking)
+```c#
+string Read(uint size=4096)
+```
+
+| Parameter    | Type      | Default | Description
+| ------------ | --------- | ------- | -----------------------
+| `size`       | `uint`    | `4096`  | The max frame size
+
+| Return
+| ---------------------------
+| The latest frame
+
+###### Examples
+```c#
+using Fscc;
+...
+
+string str = p.Read();
+```
+
+## Read (Timeout)
+```c#
+string Read(uint size, uint timeout)
+```
+
+| Parameter    | Type      | Description
+| ------------ | --------- | -----------------------
+| `size`       | `uint`    | The max frame size
+| `timeout`    | `uint`    | Number of milliseconds to wait for data
+
+| Return
+| ---------------------------
+| The latest frame
+
+###### Examples
+```c#
+using Fscc;
+...
+
+string str = p.Read(4096, 100);
+```
 
 
 ### Additional Resources

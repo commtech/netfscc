@@ -11,7 +11,7 @@
 
 ## Property
 ```c#
-public TransmitModifiers TxModifiers;
+TxModifiers TxModifiers { get {...}, set{...} };
 ```
 
 

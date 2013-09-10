@@ -1,47 +1,85 @@
 # Write
 
 
-###### Driver Support
+###### Support
 | Code           | Version
 | -------------- | --------
 | `fscc-windows` | `v2.0.0` 
 | `fscc-linux`   | `v2.0.0` 
+| `netfscc`      | `v1.0.0`
 
 
 ## Write
-```c
-int fscc_write(fscc_handle h, char *buf, unsigned size, unsigned *bytes_written, OVERLAPPED *o)
+```c#
+int Write(byte[] buf, uint size, out NativeOverlapped o);
+```
+
+| Parameter    | Type                   | Description
+| ------------ | ---------------------- | -----------------------
+| `buf`        | `byte[]`               | The data buffer to transmit
+| `size`       | `uint`                 | The number of bytes to transmit
+| `o`          | `uot NativeOverlapped` | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
+
+
+###### Examples
+```c#
+using Fscc;
+...
+
+var odata = new byte[20];
+var bytes_written = 0;
+
+bytes_written = p.Write(odata, odata.Length, o);
+```
+
+## Write
+```c#
+uint Write(byte[] buf, uint size);
 ```
 
 | Parameter    | Type             | Description
 | ------------ | ---------------- | -----------------------
-| `h`          | `fscc_handle`    | The handle to your port
-| `buf`        | `char *`         | The data buffer to transmit
-| `size`       | `unsigned`       | The number of bytes to transmit
-| `bytes_read` | `unsigned *`     | How many bytes were written to the read
-| `o`          | `OVERLAPPED *`   | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
+| `buf`        | `byte[]`               | The data buffer to transmit
+| `size`       | `uint`                 | The number of bytes to transmit
 
-| Return Value            | Cause
-| ----------------------- | ------------------------------------------------------------------
-| 0                       | Success
-| `FSCC_BUFFER_TOO_SMALL` | The write size exceeds the output memory usage cap
-| `FSCC_TIMEOUT`          | You are executing a command that requires a transmit clock present
+| Return
+| ---------------------------
+| Number of bytes transmitted
 
 ###### Examples
-```c
-#include <fscc.h>
+```c#
+using Fscc;
 ...
 
-char odata[] = "Hello world!";
-unsigned bytes_written;
+var odata = new byte[20];
+var bytes_written = 0;
 
-fscc_write(h, odata, sizeof(odata), &bytes_written, NULL);
+bytes_written = p.Write(odata, odata.Length);
 ```
 
-###### Support
-| Code           | Version
-| -------------- | --------
-| `cfscc`        | `v1.0.0`
+## Write
+```c#
+uint Write(string str);
+```
+
+| Parameter | Type     | Description
+| --------- | -------- | -----------------------
+| `str`     | `string` | The string to transmit
+
+| Return
+| ---------------------------
+| Number of bytes transmitted
+
+###### Examples
+```c#
+using Fscc;
+...
+
+string odata = "Hello world!";
+var bytes_written = 0;
+
+bytes_written = p.Write(odata);
+```
 
 
 ### Additional Resources

@@ -25,23 +25,18 @@ using System;
 
 public class Tutorial
 {
-	public static int Main(string[] args)
-	{
-		string odata = "Hello world!";
-		string idata;
-
+    public static int Main(string[] args)
+    {
    		Fscc.Port p = new Fscc.Port(0);
    		
-		/* Send "Hello world!" text */
-		p.Write(odata);
+        // Send "Hello world!" text
+        p.Write("Hello world!");
 
-		/* Read the data back in (with our loopback connector) */
-		idata = p.Read((uint)odata.Length);
+        // Read the data back in (with our loopback connector)
+        Console.WriteLine(p.Read());
 
-		Console.WriteLine(idata);
-
-		return 0;
-	}
+        return 0;
+    }
 }
 ```
 

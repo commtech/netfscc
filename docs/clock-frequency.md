@@ -23,7 +23,7 @@ desired baud rate using the BGR register.
 
 ## Property
 ```c#
-public uint ClockFrequency;
+uint ClockFrequency { set{...} };
 ```
 
 ## Set

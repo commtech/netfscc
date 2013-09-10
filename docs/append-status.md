@@ -17,7 +17,7 @@ a few methods of enabling this additional data.
 
 ## Property
 ```c#
-public bool AppendStatus;
+bool AppendStatus { get {...}, set{...} };
 ```
 
 

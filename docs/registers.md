@@ -31,7 +31,7 @@ effect.
 
 ## Property
 ```c#
-public Registers Registers;
+Registers Registers;
 ```
 
 

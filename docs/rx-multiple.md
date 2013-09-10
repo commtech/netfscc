@@ -10,7 +10,7 @@
 
 ## Property
 ```c#
-public bool RxMultiple;
+bool RxMultiple { get {...}, set{...} };
 ```
 
 

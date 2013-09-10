@@ -10,7 +10,7 @@
 
 ## Property
 ```c#
-public MemoryCap MemoryCap;
+MemoryCap MemoryCap;
 ```
 
 

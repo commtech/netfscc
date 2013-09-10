@@ -11,7 +11,7 @@
 
 ## Property
 ```c#
-public bool IgnoreTimeout;
+bool IgnoreTimeout { get {...}, set{...} };
 ```
 
 

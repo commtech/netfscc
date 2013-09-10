@@ -14,7 +14,7 @@ if you would like to use the asynchronous functionality.
 
 ## Connect
 ```c#
-public Port(uint port_num);
+Port(uint port_num);
 ```
 
 ###### Examples

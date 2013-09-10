@@ -13,7 +13,7 @@ there are a couple of methods you can use.
 
 ## Execute
 ```c
-public bool Purge(bool tx, bool rx);
+bool Purge(bool tx, bool rx);
 ```
 
 | Parameter | Type   | Description
@@ -22,7 +22,7 @@ public bool Purge(bool tx, bool rx);
 | `rx`      | `bool` | Whether to purge the receive data
 
 ```c
-public bool Purge();
+bool Purge();
 ```
 
 This version purges both the transmit and receive sides.

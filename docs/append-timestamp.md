@@ -10,7 +10,7 @@
 
 ###### Property
 ```c#
-public bool AppendTimestamp;
+bool AppendTimestamp { get {...}, set{...} };
 ```
 
 
