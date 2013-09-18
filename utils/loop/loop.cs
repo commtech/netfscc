@@ -94,7 +94,7 @@ public class Loop
         p.Registers.DPLLR = 0x00000004;
         p.Registers.FCR = 0x00000000;
 
-        p.ClockFrequency = 1000000;
+        p.ClockFrequency = 18432000;
 
         p.Purge(true, true);
     }
