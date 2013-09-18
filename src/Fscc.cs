@@ -19,17 +19,42 @@
 */
 
 using System;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using Microsoft.Win32.SafeHandles;
 using System.Threading;
-using System.IO.Ports;
-using System.Reflection;
 
 namespace Fscc
 {
     public enum TxModifiers { XF = 0, XREP = 1, TXT = 2, TXEXT = 4 };
+    enum ErrorTypes { FSCC_TIMEOUT=16000, FSCC_INCORRECT_MODE, FSCC_BUFFER_TOO_SMALL, FSCC_PORT_NOT_FOUND };
+
+    public class PortNotFoundException : SystemException
+    {
+        public PortNotFoundException(uint port_num) : base("Port not found")
+        {
+            this._port_num = port_num;
+        }
+
+        public uint PortNum
+        {
+            get
+            {
+                return this._port_num;
+            }
+        }
+
+        uint _port_num;
+    }
+
+    public class TimeoutException : SystemException
+    {
+        public TimeoutException() : base("Port timed out") {}
+    }
+
+    public class BufferTooSmallException : SystemException
+    {
+        public BufferTooSmallException() : base("Buffer too small") {}
+    }
 
     public class Port
     {
@@ -56,8 +81,16 @@ namespace Fscc
         {
             int e = fscc_connect(port_num, true, out this._handle);
 
-            if (e >= 1)
+            switch (e) {
+            case 0:
+                break;
+
+            case (int)ErrorTypes.FSCC_PORT_NOT_FOUND:
+                throw new PortNotFoundException(port_num);
+
+            default:
                 throw new Exception(e.ToString());
+            }
 
             this._port_num = port_num;
             this._registers = new Registers(this._handle);
@@ -82,20 +115,14 @@ namespace Fscc
         {
             set
             {
-                int e = fscc_set_tx_modifiers(this._handle, (uint)value);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                fscc_set_tx_modifiers(this._handle, (uint)value);
             }
 
             get
             {
                 uint modifiers;
 
-                int e = fscc_get_tx_modifiers(this._handle, out modifiers);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                fscc_get_tx_modifiers(this._handle, out modifiers);
 
                 return (TxModifiers)modifiers;
             }
@@ -114,25 +141,17 @@ namespace Fscc
         {
             set
             {
-                int e = 0;
-
                 if (value == true)
-                    e = fscc_enable_append_status(this._handle);
+                    fscc_enable_append_status(this._handle);
                 else
-                    e = fscc_disable_append_status(this._handle);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                    fscc_disable_append_status(this._handle);
             }
 
             get
             {
                 bool status;
 
-                int e = fscc_get_append_status(this._handle, out status);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                fscc_get_append_status(this._handle, out status);
 
                 return status;
             }
@@ -151,25 +170,17 @@ namespace Fscc
         {
             set
             {
-                int e = 0;
-
                 if (value == true)
-                    e = fscc_enable_append_timestamp(this._handle);
+                    fscc_enable_append_timestamp(this._handle);
                 else
-                    e = fscc_disable_append_timestamp(this._handle);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                    fscc_disable_append_timestamp(this._handle);
             }
 
             get
             {
                 bool timestamp;
 
-                int e = fscc_get_append_timestamp(this._handle, out timestamp);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                fscc_get_append_timestamp(this._handle, out timestamp);
 
                 return timestamp;
             }
@@ -188,25 +199,17 @@ namespace Fscc
         {
             set
             {
-                int e = 0;
-
                 if (value == true)
-                    e = fscc_enable_ignore_timeout(this._handle);
+                    fscc_enable_ignore_timeout(this._handle);
                 else
-                    e = fscc_disable_ignore_timeout(this._handle);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                    fscc_disable_ignore_timeout(this._handle);
             }
 
             get
             {
                 bool status;
 
-                int e = fscc_get_ignore_timeout(this._handle, out status);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                fscc_get_ignore_timeout(this._handle, out status);
 
                 return status;
             }
@@ -225,25 +228,17 @@ namespace Fscc
         {
             set
             {
-                int e = 0;
-
                 if (value == true)
-                    e = fscc_enable_rx_multiple(this._handle);
+                    fscc_enable_rx_multiple(this._handle);
                 else
-                    e = fscc_disable_rx_multiple(this._handle);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                    fscc_disable_rx_multiple(this._handle);
             }
 
             get
             {
                 bool status;
 
-                int e = fscc_get_rx_multiple(this._handle, out status);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                fscc_get_rx_multiple(this._handle, out status);
 
                 return status;
             }
@@ -254,12 +249,23 @@ namespace Fscc
 
         public void Purge(bool tx, bool rx)
         {
-            fscc_purge(this._handle, tx, rx);
+            int e = fscc_purge(this._handle, tx, rx);
+
+            switch (e) {
+            case 0:
+                break;
+
+            case (int)ErrorTypes.FSCC_TIMEOUT:
+                throw new TimeoutException();
+
+            default:
+                throw new Exception(e.ToString());
+            }
         }
 
         public void Purge()
         {
-            fscc_purge(this._handle, true, true);
+            Purge(true, true);
         }
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
@@ -269,12 +275,7 @@ namespace Fscc
         {
             set
             {
-                int e = 0;
-
-                e = fscc_set_clock_frequency(this._handle, value);
-
-                if (e >= 1)
-                    throw new Exception(e.ToString());
+                fscc_set_clock_frequency(this._handle, value);
             }
         }
 
@@ -517,13 +518,10 @@ namespace Fscc
             IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(r));
             Marshal.StructureToPtr(r, buffer, false);
 
-            int e = fscc_get_registers(this._handle, buffer);
+            fscc_get_registers(this._handle, buffer);
 
             r = (_Registers)Marshal.PtrToStructure(buffer, typeof(_Registers));
             Marshal.FreeHGlobal(buffer);
-
-            if (e >= 1)
-                throw new Exception(e.ToString());
 
             return r;
         }
@@ -537,8 +535,16 @@ namespace Fscc
 
             Marshal.FreeHGlobal(buffer);
 
-            if (e >= 1)
+            switch (e) {
+            case 0:
+                break;
+
+            case (int)ErrorTypes.FSCC_TIMEOUT:
+                throw new TimeoutException();
+
+            default:
                 throw new Exception(e.ToString());
+            }
         }
 
         public UInt32 FIFOT
@@ -946,13 +952,10 @@ namespace Fscc
             IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(m));
             Marshal.StructureToPtr(m, buffer, false);
 
-            int e = fscc_get_memory_cap(this._handle, buffer);
+            fscc_get_memory_cap(this._handle, buffer);
 
             m = (_MemoryCap)Marshal.PtrToStructure(buffer, typeof(_MemoryCap));
             Marshal.FreeHGlobal(buffer);
-
-            if (e >= 1)
-                throw new Exception(e.ToString());
 
             return m;
         }
@@ -962,12 +965,9 @@ namespace Fscc
             IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(m));
             Marshal.StructureToPtr(m, buffer, false);
 
-            int e = fscc_set_memory_cap(this._handle, buffer);
+            fscc_set_memory_cap(this._handle, buffer);
 
             Marshal.FreeHGlobal(buffer);
-
-            if (e >= 1)
-                throw new Exception(e.ToString());
         }
 
         public uint Input
