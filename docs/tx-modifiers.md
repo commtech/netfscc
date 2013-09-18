@@ -36,5 +36,5 @@ p.TxModifiers = Fscc.TxModifiers.XF | Fscc.TxModifiers.XREP;
 
 
 ### Additional Resources
-- Complete example: [`examples\tx-modifiers.cs`](https://github.com/commtech/netfscc/blob/master/examples/tx-modifiers/tx-modifiers.cs)
+- Complete example: [`examples\tx-modifiers.cs`](https://github.com/commtech/netfscc/blob/master/examples/tx-modifiers.cs)
 - Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

@@ -4,7 +4,7 @@ This README file is best viewed [online](http://github.com/commtech/netfscc/).
 ## Installing Library
 
 ##### Downloading Library
-- You can use the pre-built driver package that is included with the driver
+- You can use the pre-built library files that are included with the driver
 - Or, you can download the latest library version from
 [Github releases](https://github.com/commtech/netfscc/releases).
 
@@ -14,7 +14,7 @@ This README file is best viewed [online](http://github.com/commtech/netfscc/).
 Lets get started with a quick programming example for fun.
 
 _This tutorial has already been set up for you at_ 
-[`examples/tutorial.c`](https://github.com/commtech/netfscc/tree/master/examples/tutorial.c).
+[`examples/tutorial.cs`](https://github.com/commtech/netfscc/tree/master/examples/tutorial.cs).
 
 First, drop `netfscc.dll` and `cfscc.dll` into a test directory. Now that those files are 
 copied over, create a new C# file (named tutorial.cs) with the following code.
@@ -44,7 +44,7 @@ For this example I will use the Visual Studio command line compiler, but
 you can use your compiler of choice.
 
 ```
-# csc /reference:netfscc.dll tutorial.cs
+# csc /reference:netfscc.dll /platform:x86 tutorial.cs
 ```
 
 Now attach the included loopback connector.

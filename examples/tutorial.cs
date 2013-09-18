@@ -5,7 +5,7 @@ public class Tutorial
 {
     public static int Main(string[] args)
     {
-   		Fscc.Port p = new Fscc.Port(0);
+        Fscc.Port p = new Fscc.Port(0);
 
         // Send "Hello world!" text
         p.Write("Hello world!");

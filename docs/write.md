@@ -18,7 +18,7 @@ int Write(byte[] buf, uint size, out NativeOverlapped o);
 | ------------ | ---------------------- | -----------------------
 | `buf`        | `byte[]`               | The data buffer to transmit
 | `size`       | `uint`                 | The number of bytes to transmit
-| `o`          | `uot NativeOverlapped` | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
+| `o`          | `out NativeOverlapped` | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
 
 
 ###### Examples
@@ -84,4 +84,4 @@ bytes_written = p.Write(odata);
 
 ### Additional Resources
 - Complete example: [`examples\tutorial.cs`](https://github.com/commtech/netfscc/blob/master/examples/tutorial.cs)
-- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/fscc.cs)
+- Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)

@@ -37,5 +37,5 @@ p.MemoryCap.Output = 2000000;
 
 
 ### Additional Resources
-- Complete example: [`examples\append-status.cs`](https://github.com/commtech/netfscc/blob/master/examples/append-status.cs)
+- Complete example: [`examples\memory-cap.cs`](https://github.com/commtech/netfscc/blob/master/examples/memory-cap.cs)
 - Implemenation details: [`src\Fscc.cs`](https://github.com/commtech/netfscc/blob/master/src/Fscc.cs)
