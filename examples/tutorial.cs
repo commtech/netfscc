@@ -11,7 +11,7 @@ public class Tutorial
         p.Write("Hello world!");
 
         // Read the data back in (with our loopback connector)
-        Console.WriteLine(p.Read());
+        Console.WriteLine(p.Read(100));
 
         return 0;
     }

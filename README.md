@@ -33,7 +33,7 @@ public class Tutorial
         p.Write("Hello world!");
 
         // Read the data back in (with our loopback connector)
-        Console.WriteLine(p.Read());
+        Console.WriteLine(p.Read(100));
 
         return 0;
     }
@@ -77,7 +77,7 @@ own program. All of these options are described on their respective documentatio
 
 
 ## Dependencies
-TODO
+- [FSCC C Library](https://github.com/commtech/cfscc/)
 
 
 ## API Compatibility
