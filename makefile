@@ -12,7 +12,7 @@ $(TARGET).dll:$(SOURCES) $(LIBS)
   csc /linkresource:$(CFC_DIR)\cfscc.dll /t:library /out:$@ $(SOURCES) /platform:x86
 
 $(TARGET)d.dll:$(SOURCES) $(LIBSD)
-  csc /linkresource:$(CFC_DIR)\cfsccd.dll /t:library /out:$@ $(SOURCES) /platform:x86 /define:DEBUG
+  csc /linkresource:$(CFC_DIR)\cfsccd.dll /t:library /out:$@ $(SOURCES) /platform:x86 /debug /define:DEBUG
   
 $(LIBS):
   pushd $(CFC_DIR) & nmake & popd
