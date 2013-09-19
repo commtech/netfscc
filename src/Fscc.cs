@@ -75,11 +75,11 @@ namespace Fscc
         }
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_connect(uint port_num, bool overlapped, out IntPtr h);
+        private static extern int fscc_connect(uint port_num, out IntPtr h);
 
         public Port(uint port_num)
         {
-            int e = fscc_connect(port_num, true, out this._handle);
+            int e = fscc_connect(port_num, out this._handle);
 
             switch (e) {
             case 0:
@@ -283,7 +283,7 @@ namespace Fscc
         private static extern int fscc_write(IntPtr h, byte[] buf, uint size, out uint bytes_written, out NativeOverlapped overlapped);
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_write(IntPtr h, byte[] buf, uint size, out uint bytes_written, IntPtr overlapped);
+        private static extern int fscc_write_with_blocking(IntPtr h, byte[] buf, uint size, out uint bytes_written);
 
         [DllImport("kernel32.dll", SetLastError=true)]
         public static extern bool GetOverlappedResult(
@@ -319,12 +319,23 @@ namespace Fscc
 
         public uint Write(byte[] buf, uint size)
         {
-            NativeOverlapped o = new NativeOverlapped();
-            uint bytes_written = 0;
+            uint bytes_written;
 
-            Write(buf, size, out o);
+            int e = fscc_write_with_blocking(this._handle, buf, size, out bytes_written);
 
-            GetOverlappedResult(this._handle, out o, out bytes_written, true);
+            switch (e) {
+            case 0:
+                break;
+
+            case (int)ErrorTypes.FSCC_BUFFER_TOO_SMALL:
+                throw new BufferTooSmallException();
+
+            case (int)ErrorTypes.FSCC_TIMEOUT:
+                throw new TimeoutException();
+
+            default:
+                throw new SystemException(e.ToString());
+            }
 
             return bytes_written;
         }
@@ -338,7 +349,7 @@ namespace Fscc
         private static extern int fscc_read(IntPtr h, byte[] buf, uint size, out uint bytes_read, out NativeOverlapped overlapped);
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int fscc_read(IntPtr h, byte[] buf, uint size, out uint bytes_read, IntPtr overlapped);
+        private static extern int fscc_read_with_blocking(IntPtr h, byte[] buf, uint size, out uint bytes_read);
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_read_with_timeout(IntPtr h, byte[] buf, uint size, out uint bytes_read, uint timeout);
@@ -366,12 +377,20 @@ namespace Fscc
 
         public uint Read(byte[] buf, uint size)
         {
-            NativeOverlapped o = new NativeOverlapped();
-            uint bytes_read = 0;
+            uint bytes_read;
 
-            Read(buf, size, out o);
+            int e = fscc_read_with_blocking(this._handle, buf, size, out bytes_read);
 
-            GetOverlappedResult(this._handle, out o, out bytes_read, true);
+            switch (e) {
+            case 0:
+                break;
+
+            case (int)ErrorTypes.FSCC_BUFFER_TOO_SMALL:
+                throw new BufferTooSmallException();
+
+            default:
+                throw new SystemException(e.ToString());
+            }
 
             return bytes_read;
         }
