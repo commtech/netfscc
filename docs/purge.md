@@ -13,7 +13,7 @@ there are a couple of methods you can use.
 
 ## Execute
 ```c
-bool Purge(bool tx, bool rx);
+void Purge(bool tx, bool rx);
 ```
 
 | Parameter | Type   | Description
@@ -21,9 +21,20 @@ bool Purge(bool tx, bool rx);
 | `tx`      | `bool` | Whether to purge the transmit data
 | `rx`      | `bool` | Whether to purge the receive data
 
+| Exception               | Cause
+| ----------------------- | --------------------------------------------------------------------
+| TimeoutException        | You are executing a command that requires a transmit clock present
+
+
 ```c
-bool Purge();
+void Purge();
 ```
+
+| Exception               | Cause
+| ----------------------- | --------------------------------------------------------------------
+| TimeoutException        | You are executing a command that requires a transmit clock present
+| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+
 
 This version purges both the transmit and receive sides.
 

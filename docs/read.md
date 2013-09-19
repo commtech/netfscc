@@ -45,10 +45,14 @@ int Read(byte[] buf, uint size, out NativeOverlapped o)
 | `size`       | `uint`                 | The data buffer size
 | `o`          | `out NativeOverlapped` | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
 
-| Return Value            | Cause
-| ----------------------- | ------------------------------------------------------------------
-| 0                       | Success
-| `FSCC_BUFFER_TOO_SMALL` | The read size is smaller than the next frame (in a frame based mode)
+| Return Value | Cause
+| ------------ | ------------------------------------------------------------------
+| 0            | Success
+| ~            | Unknown system error
+
+| Exception               | Cause
+| ----------------------- | --------------------------------------------------------------------
+| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
 
 ###### Examples
 ```c#
@@ -75,6 +79,10 @@ uint Read(byte[] buf, uint size)
 | Return
 | ---------------------------
 | Number of bytes read
+
+| Exception               | Cause
+| ----------------------- | --------------------------------------------------------------------
+| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
 
 ###### Examples
 ```c#
@@ -103,6 +111,10 @@ uint Read(byte[] buf, uint size, uint timeout)
 | ---------------------------
 | Number of bytes read
 
+| Exception               | Cause
+| ----------------------- | --------------------------------------------------------------------
+| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+
 ###### Examples
 ```c#
 using Fscc;
@@ -127,6 +139,10 @@ string Read(uint size=4096)
 | ---------------------------
 | The latest frame
 
+| Exception               | Cause
+| ----------------------- | --------------------------------------------------------------------
+| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+
 ###### Examples
 ```c#
 using Fscc;
@@ -148,6 +164,10 @@ string Read(uint size, uint timeout)
 | Return
 | ---------------------------
 | The latest frame
+
+| Exception               | Cause
+| ----------------------- | --------------------------------------------------------------------
+| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
 
 ###### Examples
 ```c#
