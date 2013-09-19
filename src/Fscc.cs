@@ -89,7 +89,7 @@ namespace Fscc
                 throw new PortNotFoundException(port_num);
 
             default:
-                throw new Exception(e.ToString());
+                throw new SystemException(e.ToString());
             }
 
             this._port_num = port_num;
@@ -259,7 +259,7 @@ namespace Fscc
                 throw new TimeoutException();
 
             default:
-                throw new Exception(e.ToString());
+                throw new SystemException(e.ToString());
             }
         }
 
@@ -299,8 +299,20 @@ namespace Fscc
 
             int e = fscc_write(this._handle, buf, size, out bytes_written, out o);
 
-            if (e >= 1 && e != 997)
-                throw new Exception(e.ToString());
+            switch (e) {
+            case 0:
+            case 997: // ERROR_IO_PENDING
+                break;
+
+            case (int)ErrorTypes.FSCC_BUFFER_TOO_SMALL:
+                throw new BufferTooSmallException();
+
+            case (int)ErrorTypes.FSCC_TIMEOUT:
+                throw new TimeoutException();
+
+            default:
+                throw new SystemException(e.ToString());
+            }
 
             return e;
         }
@@ -337,8 +349,17 @@ namespace Fscc
 
             int e = fscc_read(this._handle, buf, size, out bytes_read, out o);
 
-            if (e >= 1 && e != 997)
-                throw new Exception(e.ToString());
+            switch (e) {
+            case 0:
+            case 997: // ERROR_IO_PENDING
+                break;
+
+            case (int)ErrorTypes.FSCC_BUFFER_TOO_SMALL:
+                throw new BufferTooSmallException();
+
+            default:
+                throw new SystemException(e.ToString());
+            }
 
             return e;
         }
@@ -361,8 +382,16 @@ namespace Fscc
 
             int e = fscc_read_with_timeout(this._handle, buf, size, out bytes_read, timeout);
 
-            if (e >= 1)
-                throw new Exception(e.ToString());
+            switch (e) {
+            case 0:
+                break;
+
+            case (int)ErrorTypes.FSCC_BUFFER_TOO_SMALL:
+                throw new BufferTooSmallException();
+
+            default:
+                throw new SystemException(e.ToString());
+            }
 
             return bytes_read;
         }
@@ -543,7 +572,7 @@ namespace Fscc
                 throw new TimeoutException();
 
             default:
-                throw new Exception(e.ToString());
+                throw new SystemException(e.ToString());
             }
         }
 
