@@ -20,10 +20,10 @@ int Write(byte[] buf, uint size, out NativeOverlapped o);
 | `size`       | `uint`                 | The number of bytes to transmit
 | `o`          | `out NativeOverlapped` | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| TimeoutException        | You are executing a command that requires a transmit clock present
-| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+| Exception               | Base Exception  | Cause
+| ----------------------- | --------------- | --------------------------------------------------
+| BufferTooSmallException | SystemException | The write size exceeds the output memory usage cap
+| TimeoutException        | SystemException | Command timed out (missing clock)
 
 
 ###### Examples
@@ -51,10 +51,10 @@ uint Write(byte[] buf, uint size);
 | ---------------------------
 | Number of bytes transmitted
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| TimeoutException        | You are executing a command that requires a transmit clock present
-| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+| Exception               | Base Exception  | Cause
+| ----------------------- | --------------- | --------------------------------------------------
+| BufferTooSmallException | SystemException | The write size exceeds the output memory usage cap
+| TimeoutException        | SystemException | Command timed out (missing clock)
 
 ###### Examples
 ```c#
@@ -80,10 +80,10 @@ uint Write(string str);
 | ---------------------------
 | Number of bytes transmitted
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| TimeoutException        | You are executing a command that requires a transmit clock present
-| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+| Exception               | Base Exception  | Cause
+| ----------------------- | --------------- | --------------------------------------------------
+| BufferTooSmallException | SystemException | The write size exceeds the output memory usage cap
+| TimeoutException        | SystemException | Command timed out (missing clock)
 
 ###### Examples
 ```c#

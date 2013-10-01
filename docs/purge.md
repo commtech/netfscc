@@ -21,9 +21,9 @@ void Purge(bool tx, bool rx);
 | `tx`      | `bool` | Whether to purge the transmit data
 | `rx`      | `bool` | Whether to purge the receive data
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| TimeoutException        | You are executing a command that requires a transmit clock present
+| Exception        | Base Exception  | Cause
+| ---------------- | --------------- | ---------------------------------
+| TimeoutException | SystemException | Command timed out (missing clock)
 
 
 ```c

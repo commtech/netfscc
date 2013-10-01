@@ -50,9 +50,9 @@ int Read(byte[] buf, uint size, out NativeOverlapped o)
 | 0            | Success
 | ~            | Unknown system error
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+| Exception               | Base Exception  | Cause
+| ----------------------- | --------------- | ----------------------------------------------
+| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
 
 ###### Examples
 ```c#
@@ -80,9 +80,9 @@ uint Read(byte[] buf, uint size)
 | ---------------------------
 | Number of bytes read
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+| Exception               | Base Exception  | Cause
+| ----------------------- | --------------- | ----------------------------------------------
+| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
 
 ###### Examples
 ```c#
@@ -111,9 +111,9 @@ uint Read(byte[] buf, uint size, uint timeout)
 | ---------------------------
 | Number of bytes read
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+| Exception               | Base Exception  | Cause
+| ----------------------- | --------------- | ----------------------------------------------
+| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
 
 ###### Examples
 ```c#
@@ -139,9 +139,9 @@ string Read(uint size=4096)
 | ---------------------------
 | The latest frame
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+| Exception               | Base Exception  | Cause
+| ----------------------- | --------------- | ----------------------------------------------
+| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
 
 ###### Examples
 ```c#
@@ -165,9 +165,9 @@ string Read(uint size, uint timeout)
 | ---------------------------
 | The latest frame
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+| Exception               | Base Exception  | Cause
+| ----------------------- | --------------- | ----------------------------------------------
+| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
 
 ###### Examples
 ```c#
