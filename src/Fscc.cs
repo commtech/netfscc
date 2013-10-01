@@ -19,6 +19,7 @@
 */
 
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -26,24 +27,16 @@ using System.Threading;
 namespace Fscc
 {
     public enum TxModifiers { XF = 0, XREP = 1, TXT = 2, TXEXT = 4 };
-    enum ErrorTypes { FSCC_TIMEOUT=16000, FSCC_INCORRECT_MODE, FSCC_BUFFER_TOO_SMALL, FSCC_PORT_NOT_FOUND };
+    enum ErrorTypes { FSCC_TIMEOUT=16000, FSCC_INCORRECT_MODE, FSCC_BUFFER_TOO_SMALL, FSCC_PORT_NOT_FOUND, FSCC_INVALID_ACCESS };
 
-    public class PortNotFoundException : SystemException
+    public class PortNotFoundException : FileNotFoundException
     {
-        public PortNotFoundException(uint port_num) : base("Port not found")
-        {
-            this._port_num = port_num;
-        }
+        public PortNotFoundException(uint port_num) : base(string.Format("Port {0} not found", port_num)) {}
+    }
 
-        public uint PortNum
-        {
-            get
-            {
-                return this._port_num;
-            }
-        }
-
-        uint _port_num;
+    public class InvalidAccessException : UnauthorizedAccessException
+    {
+        public InvalidAccessException() : base("Invalid access") {}
     }
 
     public class TimeoutException : SystemException
@@ -87,6 +80,9 @@ namespace Fscc
 
             case (int)ErrorTypes.FSCC_PORT_NOT_FOUND:
                 throw new PortNotFoundException(port_num);
+
+            case (int)ErrorTypes.FSCC_INVALID_ACCESS:
+                throw new InvalidAccessException();
 
             default:
                 throw new SystemException(e.ToString());
