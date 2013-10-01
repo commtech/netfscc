@@ -41,7 +41,7 @@ namespace Fscc
 
     public class TimeoutException : SystemException
     {
-        public TimeoutException() : base("Port timed out") {}
+        public TimeoutException() : base("Command timed out (missing clock)") {}
     }
 
     public class BufferTooSmallException : SystemException
