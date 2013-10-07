@@ -1,7 +1,7 @@
 TARGET = netfscc
 
 SOURCES = src\Fscc.cs
-CFC_DIR = ..\cfscc
+CFC_DIR = libs\cfscc
 LIBS = $(CFC_DIR)\cfscc.lib
 LIBSD = $(CFC_DIR)\cfsccd.lib
 
