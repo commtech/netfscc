@@ -24,6 +24,7 @@ int Write(byte[] buf, uint size, out NativeOverlapped o);
 | ----------------------- | --------------- | --------------------------------------------------
 | BufferTooSmallException | SystemException | The write size exceeds the output memory usage cap
 | TimeoutException        | SystemException | Command timed out (missing clock)
+| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
 
 
 ###### Examples
@@ -55,6 +56,7 @@ uint Write(byte[] buf, uint size);
 | ----------------------- | --------------- | --------------------------------------------------
 | BufferTooSmallException | SystemException | The write size exceeds the output memory usage cap
 | TimeoutException        | SystemException | Command timed out (missing clock)
+| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```c#
@@ -84,6 +86,7 @@ uint Write(string str);
 | ----------------------- | --------------- | --------------------------------------------------
 | BufferTooSmallException | SystemException | The write size exceeds the output memory usage cap
 | TimeoutException        | SystemException | Command timed out (missing clock)
+| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```c#

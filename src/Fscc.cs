@@ -49,6 +49,11 @@ namespace Fscc
         public BufferTooSmallException() : base("Buffer too small") {}
     }
 
+    public class IncorrectModeException : SystemException
+    {
+        public IncorrectModeException() : base("Incorrect mode") {}
+    }
+
     public class Port
     {
 #if DEBUG
@@ -306,6 +311,9 @@ namespace Fscc
             case (int)ErrorTypes.FSCC_TIMEOUT:
                 throw new TimeoutException();
 
+            case (int)ErrorTypes.FSCC_INCORRECT_MODE:
+                throw new IncorrectModeException();
+
             default:
                 throw new SystemException(e.ToString());
             }
@@ -328,6 +336,9 @@ namespace Fscc
 
             case (int)ErrorTypes.FSCC_TIMEOUT:
                 throw new TimeoutException();
+
+            case (int)ErrorTypes.FSCC_INCORRECT_MODE:
+                throw new IncorrectModeException();
 
             default:
                 throw new SystemException(e.ToString());
@@ -364,6 +375,9 @@ namespace Fscc
             case (int)ErrorTypes.FSCC_BUFFER_TOO_SMALL:
                 throw new BufferTooSmallException();
 
+            case (int)ErrorTypes.FSCC_INCORRECT_MODE:
+                throw new IncorrectModeException();
+
             default:
                 throw new SystemException(e.ToString());
             }
@@ -384,6 +398,9 @@ namespace Fscc
             case (int)ErrorTypes.FSCC_BUFFER_TOO_SMALL:
                 throw new BufferTooSmallException();
 
+            case (int)ErrorTypes.FSCC_INCORRECT_MODE:
+                throw new IncorrectModeException();
+
             default:
                 throw new SystemException(e.ToString());
             }
@@ -403,6 +420,9 @@ namespace Fscc
 
             case (int)ErrorTypes.FSCC_BUFFER_TOO_SMALL:
                 throw new BufferTooSmallException();
+
+            case (int)ErrorTypes.FSCC_INCORRECT_MODE:
+                throw new IncorrectModeException();
 
             default:
                 throw new SystemException(e.ToString());
