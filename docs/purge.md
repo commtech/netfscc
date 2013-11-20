@@ -21,19 +21,19 @@ void Purge(bool tx, bool rx);
 | `tx`      | `bool` | Whether to purge the transmit data
 | `rx`      | `bool` | Whether to purge the receive data
 
-| Exception        | Base Exception  | Cause
-| ---------------- | --------------- | ---------------------------------
-| TimeoutException | SystemException | Command timed out (missing clock)
+| Exception          | Base Exception    | Cause
+| ------------------ | ----------------- | ---------------------------------
+| `TimeoutException` | `SystemException` | Command timed out (missing clock)
 
 
 ```c
 void Purge();
 ```
 
-| Exception               | Cause
-| ----------------------- | --------------------------------------------------------------------
-| TimeoutException        | You are executing a command that requires a transmit clock present
-| BufferTooSmallException | The read size is smaller than the next frame (in a frame based mode)
+| Exception                 | Base Exception    | Cause
+| ------------------------- | ----------------- | --------------------------------------------------------------------
+| `TimeoutException`        | `SystemException` | You are executing a command that requires a transmit clock present
+| `BufferTooSmallException` | `SystemException` | The read size is smaller than the next frame (in a frame based mode)
 
 
 This version purges both the transmit and receive sides.

@@ -50,10 +50,10 @@ int Read(byte[] buf, uint size, out NativeOverlapped o)
 | 0            | Success
 | ~            | Unknown system error
 
-| Exception               | Base Exception  | Cause
-| ----------------------- | --------------- | ----------------------------------------------
-| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
-| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
+| Exception                 | Base Exception    | Cause
+| ------------------------- | ----------------- | ----------------------------------------------
+| `BufferTooSmallException` | `SystemException` | The buffer size is smaller than the next frame
+| `IncorrectModeException`  | `SystemException` | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```c#
@@ -81,10 +81,10 @@ uint Read(byte[] buf, uint size)
 | ---------------------------
 | Number of bytes read
 
-| Exception               | Base Exception  | Cause
-| ----------------------- | --------------- | ----------------------------------------------
-| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
-| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
+| Exception                 | Base Exception    | Cause
+| ------------------------- | ----------------- | ----------------------------------------------
+| `BufferTooSmallException` | `SystemException` | The buffer size is smaller than the next frame
+| `IncorrectModeException`  | `SystemException` | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```c#
@@ -113,10 +113,10 @@ uint Read(byte[] buf, uint size, uint timeout)
 | ---------------------------
 | Number of bytes read
 
-| Exception               | Base Exception  | Cause
-| ----------------------- | --------------- | ----------------------------------------------
-| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
-| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
+| Exception                 | Base Exception    | Cause
+| ------------------------- | ----------------- | ----------------------------------------------
+| `BufferTooSmallException` | `SystemException` | The buffer size is smaller than the next frame
+| `IncorrectModeException`  | `SystemException` | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```c#
@@ -142,10 +142,10 @@ string Read(uint size=4096)
 | ---------------------------
 | The latest frame
 
-| Exception               | Base Exception  | Cause
-| ----------------------- | --------------- | ----------------------------------------------
-| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
-| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
+| Exception                 | Base Exception    | Cause
+| ------------------------- | ----------------- | ----------------------------------------------
+| `BufferTooSmallException` | `SystemException` | The buffer size is smaller than the next frame
+| `IncorrectModeException`  | `SystemException` | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```c#
@@ -169,10 +169,10 @@ string Read(uint size, uint timeout)
 | ---------------------------
 | The latest frame
 
-| Exception               | Base Exception  | Cause
-| ----------------------- | --------------- | ----------------------------------------------
-| BufferTooSmallException | SystemException | The buffer size is smaller than the next frame
-| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
+| Exception                 | Base Exception    | Cause
+| ------------------------- | ----------------- | ----------------------------------------------
+| `BufferTooSmallException` | `SystemException` | The buffer size is smaller than the next frame
+| `IncorrectModeException`  | `SystemException` | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```c#

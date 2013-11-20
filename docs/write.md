@@ -20,11 +20,11 @@ int Write(byte[] buf, uint size, out NativeOverlapped o);
 | `size`       | `uint`                 | The number of bytes to transmit
 | `o`          | `out NativeOverlapped` | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
 
-| Exception               | Base Exception  | Cause
-| ----------------------- | --------------- | --------------------------------------------------
-| BufferTooSmallException | SystemException | The write size exceeds the output memory usage cap
-| TimeoutException        | SystemException | Command timed out (missing clock)
-| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
+| Exception                 | Base Exception    | Cause
+| ------------------------- | ----------------- | --------------------------------------------------
+| `BufferTooSmallException` | `SystemException` | The write size exceeds the output memory usage cap
+| `TimeoutException`        | `SystemException` | Command timed out (missing clock)
+| `IncorrectModeException`  | `SystemException` | Using the synchronous port while in asynchronous mode
 
 
 ###### Examples
@@ -52,11 +52,11 @@ uint Write(byte[] buf, uint size);
 | ---------------------------
 | Number of bytes transmitted
 
-| Exception               | Base Exception  | Cause
-| ----------------------- | --------------- | --------------------------------------------------
-| BufferTooSmallException | SystemException | The write size exceeds the output memory usage cap
-| TimeoutException        | SystemException | Command timed out (missing clock)
-| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
+| Exception                 | Base Exception    | Cause
+| ------------------------- | ----------------- | --------------------------------------------------
+| `BufferTooSmallException` | `SystemException` | The write size exceeds the output memory usage cap
+| `TimeoutException`        | `SystemException` | Command timed out (missing clock)
+| `IncorrectModeException`  | `SystemException` | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```c#
@@ -82,11 +82,11 @@ uint Write(string str);
 | ---------------------------
 | Number of bytes transmitted
 
-| Exception               | Base Exception  | Cause
-| ----------------------- | --------------- | --------------------------------------------------
-| BufferTooSmallException | SystemException | The write size exceeds the output memory usage cap
-| TimeoutException        | SystemException | Command timed out (missing clock)
-| IncorrectModeException  | SystemException | Using the synchronous port while in asynchronous mode
+| Exception                 | Base Exception    | Cause
+| ------------------------- | ----------------- | --------------------------------------------------
+| `BufferTooSmallException` | `SystemException` | The write size exceeds the output memory usage cap
+| `TimeoutException`        | `SystemException` | Command timed out (missing clock)
+| `IncorrectModeException`  | `SystemException` | Using the synchronous port while in asynchronous mode
 
 ###### Examples
 ```c#

@@ -17,10 +17,10 @@ if you would like to use the asynchronous functionality.
 Port(uint port_num);
 ```
 
-| Exception              | Base Exception                     | Cause
-| ---------------------- | ---------------------------------- | ------------------------
-| PortNotFoundException  | System.IO.FileNotFoundException    | Port not found
-| InvalidAccessException | System.UnauthorizedAccessException | Insufficient permissions
+| Exception                | Base Exception                       | Cause
+| ------------------------ | ------------------------------------ | ------------------------
+| `PortNotFoundException`  | `System.IO.FileNotFoundException`    | Port not found
+| `InvalidAccessException` | `System.UnauthorizedAccessException` | Insufficient permissions
 
 ###### Examples
 ```c#
