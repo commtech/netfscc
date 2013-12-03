@@ -31,7 +31,7 @@ var modifiers = p.TxModifiers;
 using Fscc;
 ...
 
-p.TxModifiers = Fscc.TxModifiers.XF | Fscc.TxModifiers.XREP;
+p.TxModifiers = Fscc.TxModifiers.TXT | Fscc.TxModifiers.XREP;
 ```
 
 
