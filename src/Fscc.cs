@@ -281,6 +281,55 @@ namespace Fscc
         }
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_track_interrupts(IntPtr h, uint interrupts, out uint matches, out NativeOverlapped overlapped);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_track_interrupts_with_blocking(IntPtr h, uint interrupts, out uint matches);
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int fscc_track_interrupts_with_timeout(IntPtr h, uint interrupts, out uint matches, uint timeout);
+
+        public int TrackInterrupts(uint interrupts, out uint matches, out NativeOverlapped o)
+        {
+            int e = fscc_track_interrupts(this._handle, interrupts, out matches, out o);
+
+            switch (e) {
+            case 0:
+            case 997: // ERROR_IO_PENDING
+                break;
+
+            default:
+                throw new SystemException(e.ToString());
+            }
+
+            return e;
+        }
+
+        public uint TrackInterrupts(uint interrupts)
+        {
+            uint matches;
+
+            int e = fscc_track_interrupts_with_blocking(this._handle, interrupts, out matches);
+
+            if (e != 0)
+                throw new SystemException(e.ToString());
+
+            return matches;
+        }
+
+        public uint TrackInterrupts(uint interrupts, uint timeout)
+        {
+            uint matches;
+
+            int e = fscc_track_interrupts_with_timeout(this._handle, interrupts, out matches, timeout);
+
+            if (e != 0)
+                throw new SystemException(e.ToString());
+
+            return matches;
+        }
+
+        [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_write(IntPtr h, byte[] buf, uint size, out uint bytes_written, out NativeOverlapped overlapped);
 
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
