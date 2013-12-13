@@ -410,10 +410,8 @@ namespace Fscc
         [DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
         private static extern int fscc_read_with_timeout(IntPtr h, byte[] buf, uint size, out uint bytes_read, uint timeout);
 
-        public int Read(byte[] buf, uint size, out NativeOverlapped o)
+        public int Read(byte[] buf, uint size, out uint bytes_read, out NativeOverlapped o)
         {
-            uint bytes_read;
-
             int e = fscc_read(this._handle, buf, size, out bytes_read, out o);
 
             switch (e) {

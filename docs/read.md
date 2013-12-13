@@ -36,13 +36,14 @@ bug developers introduce while trying to cancel I/O operations when using OVERLA
 
 ## Read (Overlapped)
 ```c#
-int Read(byte[] buf, uint size, out NativeOverlapped o)
+int Read(byte[] buf, uint size, out uint bytes_read, out NativeOverlapped o)
 ```
 
 | Parameter    | Type                   | Description
 | ------------ | ---------------------- | -----------------------
 | `buf`        | `byte []`              | The data buffer to hold incoming data
 | `size`       | `uint`                 | The data buffer size
+| `bytes_read` | `out uint`             | How many bytes were returned from the read
 | `o`          | `out NativeOverlapped` | [Overlapped IO structure](http://msdn.microsoft.com/en-us/library/windows/desktop/ms686358.aspx)
 
 | Return Value | Cause
