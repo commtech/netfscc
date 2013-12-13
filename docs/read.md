@@ -61,9 +61,9 @@ using Fscc;
 ...
 
 var idata = new byte[20];
-var bytes_read = 0;
+var NativeOverlapped o;
 
-bytes_read = p.Read(idata, (uint)idata.Length, o);
+var e = p.Read(idata, (uint)idata.Length, out o);
 ```
 
 
