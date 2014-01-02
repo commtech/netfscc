@@ -32,6 +32,11 @@ uint ClockFrequency { set{...} };
 ```
 
 ## Set
+
+| Exception                   | Base Exception      | Cause
+| --------------------------- | ------------------- | ---------------------------------
+| `InvalidParameterException` | `ArgumentException` | Clock frequency is out of range (15,000 to 270,000,000)
+
 ###### Examples
 ```c#
 using Fscc;
