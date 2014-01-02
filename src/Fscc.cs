@@ -27,7 +27,7 @@ using System.Threading;
 namespace Fscc
 {
     public enum TxModifiers { XF = 0, XREP = 1, TXT = 2, TXEXT = 4 };
-    enum ErrorTypes { FSCC_TIMEOUT=16000, FSCC_INCORRECT_MODE, FSCC_BUFFER_TOO_SMALL, FSCC_PORT_NOT_FOUND, FSCC_INVALID_ACCESS };
+    enum ErrorTypes { FSCC_TIMEOUT=16000, FSCC_INCORRECT_MODE, FSCC_BUFFER_TOO_SMALL, FSCC_PORT_NOT_FOUND, FSCC_INVALID_ACCESS, FSCC_INVALID_PARAMETER };
 
     public class PortNotFoundException : FileNotFoundException
     {
@@ -52,6 +52,11 @@ namespace Fscc
     public class IncorrectModeException : SystemException
     {
         public IncorrectModeException() : base("Incorrect mode") {}
+    }
+
+    public class InvalidParameterException : ArgumentException
+    {
+        public InvalidParameterException() : base("Invalid parameter") {}
     }
 
     public class Port
@@ -276,7 +281,18 @@ namespace Fscc
         {
             set
             {
-                fscc_set_clock_frequency(this._handle, value);
+                int e = fscc_set_clock_frequency(this._handle, value);
+
+                switch (e) {
+                case 0:
+                    break;
+
+                case (int)ErrorTypes.FSCC_INVALID_PARAMETER:
+                    throw new InvalidParameterException();
+
+                default:
+                    throw new SystemException(e.ToString());
+                }
             }
         }
 
