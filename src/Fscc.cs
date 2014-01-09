@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2013 Commtech, Inc.
+    Copyright (C) 2014 Commtech, Inc.
 
     This file is part of cppfscc.
 
