@@ -21,4 +21,4 @@ $(LIBSD):
   pushd $(CFC_DIR) & nmake DEBUG & popd
   
 clean:
-  del netfscc*
+  del *.dll
