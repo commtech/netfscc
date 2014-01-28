@@ -4,7 +4,8 @@ This README file is best viewed [online](http://github.com/commtech/netfscc/).
 ## Installing Library
 
 ##### Downloading Library
-- You can use the pre-built library files that are included with the driver
+- The easiest way is to grab the library from 
+[NuGet](https://www.nuget.org/packages/netfscc/)
 - Or, you can download the latest library version from
 [Github releases](https://github.com/commtech/netfscc/releases).
 
