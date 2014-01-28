@@ -1,5 +1,12 @@
 # TX Modifiers
 
+| Modifiers | Value | Description
+| -------- | ------ | -----------
+| `XF`     | `0`    | Normal transmit (disable modifiers)
+| `XREP`   | `1`    | Transmit frame repeatedly
+| `TXT`    | `2`    | Transmit frame on timer
+| `TXEXT`  | `4`    | Transmit frame on external signal
+
 
 ###### Support
 | Code           | Version
