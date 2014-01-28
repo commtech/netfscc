@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>netfscc</id>
+    <version>1.0.0</version>
+    <title>FSCC .NET Library</title>
+    <authors>Commtech, Inc.</authors>
+    <owners>Commtech, Inc.</owners>
+    <description>This package adds a .NET library for the FSCC line of cards.</description>
+    <licenseUrl>http://www.gnu.org/licenses/gpl.txt</licenseUrl>
+    <language>en-us</language>
+    <projectUrl>https://github.com/commtech/netfscc/</projectUrl>
+    <copyright>Copyright 2014 Commtech, Inc.</copyright>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <references>
+        <reference file='netfscc.dll' />
+    </references>
+  </metadata>
+</package>
