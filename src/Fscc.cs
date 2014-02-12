@@ -29,31 +29,37 @@ namespace Fscc
     public enum TxModifiers { XF = 0, XREP = 1, TXT = 2, TXEXT = 4 };
     enum ErrorTypes { FSCC_TIMEOUT=16000, FSCC_INCORRECT_MODE, FSCC_BUFFER_TOO_SMALL, FSCC_PORT_NOT_FOUND, FSCC_INVALID_ACCESS, FSCC_INVALID_PARAMETER };
 
+    [SerializableAttribute]
     public class PortNotFoundException : FileNotFoundException
     {
         public PortNotFoundException(uint port_num) : base(string.Format("Port {0} not found", port_num)) {}
     }
 
+    [SerializableAttribute]
     public class InvalidAccessException : UnauthorizedAccessException
     {
         public InvalidAccessException() : base("Invalid access") {}
     }
 
+    [SerializableAttribute]
     public class TimeoutException : SystemException
     {
         public TimeoutException() : base("Command timed out (missing clock)") {}
     }
 
+    [SerializableAttribute]
     public class BufferTooSmallException : SystemException
     {
         public BufferTooSmallException() : base("Buffer too small") {}
     }
 
+    [SerializableAttribute]
     public class IncorrectModeException : SystemException
     {
         public IncorrectModeException() : base("Incorrect mode") {}
     }
 
+    [SerializableAttribute]
     public class InvalidParameterException : ArgumentException
     {
         public InvalidParameterException() : base("Invalid parameter") {}
