@@ -74,7 +74,7 @@ public class Loop
         p.RxMultiple = false;
         p.AppendStatus = false;
         p.AppendTimestamp = false;
-        p.TxModifiers = TransmitModifiers.XF;
+        p.TxModifiers = TxModifiers.XF;
         p.IgnoreTimeout = false;
 
         p.Registers.FIFOT = 0x08001000;
