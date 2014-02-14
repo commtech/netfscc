@@ -3,3 +3,9 @@
 *.pdb
 *.bak
 *.nupkg
+
+obj/
+*.user
+*.suo
+*.CodeAnalysisLog.xml
+*.lastcodeanalysissucceeded
