@@ -78,7 +78,7 @@ own program. All of these options are described on their respective documentatio
 - [Read](https://github.com/commtech/netfscc/blob/master/docs/read.md)
 
 
-## Dependencies
+## Build Dependencies
 - .NET compiler (Visual Studio tested)
 - [cfscc](https://github.com/commtech/cfscc/) (Included)
 
