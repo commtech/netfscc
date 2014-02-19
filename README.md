@@ -85,6 +85,7 @@ own program. All of these options are described on their respective documentatio
 
 ## Run-time Dependencies
 - OS: Windows XP+ & Linux
+- .NET: 2.0+
 
 
 ## API Compatibility
