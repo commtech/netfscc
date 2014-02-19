@@ -566,6 +566,7 @@ namespace Fscc
             this._handle = h;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         private _Registers GetRegisters(_Registers r)
         {
             IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(r));
@@ -579,6 +580,7 @@ namespace Fscc
             return r;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         private void SetRegisters(_Registers r)
         {
             IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(r));
@@ -994,6 +996,7 @@ namespace Fscc
             this._handle = h;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         private _MemoryCap GetMemoryCap(_MemoryCap m)
         {
             IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(m));
@@ -1007,6 +1010,7 @@ namespace Fscc
             return m;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         private void SetMemoryCap(_MemoryCap m)
         {
             IntPtr buffer = Marshal.AllocHGlobal(Marshal.SizeOf(m));
