@@ -3,6 +3,7 @@
 *.pdb
 *.bak
 *.nupkg
+bin/
 
 obj/
 *.user
