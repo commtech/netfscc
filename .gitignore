@@ -10,3 +10,4 @@ obj/
 *.suo
 *.CodeAnalysisLog.xml
 *.lastcodeanalysissucceeded
+*.res

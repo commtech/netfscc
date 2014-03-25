@@ -24,6 +24,15 @@ for %%A in (loop) do cd utils\%%A\ & nmake clean & nmake & cd ..\..
 echo Copying Release Files...
 for %%A in (.dll, d.dll, .pdb, d.pdb) do copy %NAME%%%A %TOP%\ > nul
 
+:sign_files
+echo Signing Release Files...
+copy netfscc.cdf %TOP%\
+pushd %TOP%
+makecat netfscc.cdf
+popd
+del %TOP%\netfscc.cdf
+signtool sign /ac "DigiCert High Assurance EV Root CA.crt" /n "Commtech, Inc." /t http://timestamp.digicert.com/ %TOP%\netfscc.cat
+
 :copy_source
 echo Copying Source Code Files...
 copy docs\*.md %TOP%\docs\ > nul
