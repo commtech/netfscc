@@ -8,7 +8,7 @@ public class Tutorial
 
         p.Registers.CCR0 = 0x0011201c;
         p.Registers.BGR = 0;
-        
+
         var ccr1 = p.Registers.CCR1;
         var ccr2 = p.Registers.CCR2;
 

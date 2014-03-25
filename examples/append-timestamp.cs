@@ -1,5 +1,4 @@
 using Fscc;
-using System;
 
 public class Tutorial
 {
@@ -8,7 +7,7 @@ public class Tutorial
         Fscc.Port p = new Fscc.Port(0);
 
         var status = p.AppendTimestamp;
-        
+
         p.AppendTimestamp = true;
         p.AppendTimestamp = false;
 

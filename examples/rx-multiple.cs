@@ -7,7 +7,7 @@ public class Tutorial
         Fscc.Port p = new Fscc.Port(0);
 
         var status = p.RxMultiple;
-        
+
         p.RxMultiple = true;
         p.RxMultiple = false;
 

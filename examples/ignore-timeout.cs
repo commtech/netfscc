@@ -7,7 +7,7 @@ public class Tutorial
         Fscc.Port p = new Fscc.Port(0);
 
         var status = p.IgnoreTimeout;
-        
+
         p.IgnoreTimeout = true;
         p.IgnoreTimeout = false;
 
