@@ -49,6 +49,10 @@ for %%A in (loop) do copy utils\%%A\makefile %TOP%\utils\%%A\ > nul
 echo Copying ChangeLog...
 copy ChangeLog.md %TOP%\ > nul
 
+:copy_license
+echo Copying License...
+copy LICENSE.md %TOP%\ > nul
+
 :copy_readme
 echo Copying README...
 copy README.md %TOP%\ > nul
