@@ -90,4 +90,4 @@ We follow [Semantic Versioning](http://semver.org/) when creating releases.
 
 Copyright (C) 2020 [Commtech, Inc.](https://fastcomproducts.com/)
 
-Licensed under the [GNU General Public License v3](https://opensource.org/licenses/MIT)
+Licensed under the [MIT license](https://opensource.org/licenses/MIT)
